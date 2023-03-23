@@ -3,18 +3,27 @@ requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "python-library-template"
+name = "api-entreprise"
 dynamic = ["version"]
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "requests>=2.28",
+    "pyrate-limiter>=2.10",
+    "redis>=4.3",
+    "marshmallow>=3.19",
+    "marshmallow-dataclass>=8.5"
+]
 
-[project.scripts]
-python-library-template = "python_library_template.help:main"
+# [project.scripts]
+# api-entreprise = "python_library_template.help:main"
 
 
 [project.optional-dependencies]
-dev = ["build", "black", "mypy", "twine", "pre-commit"]
+dev = [
+    "build", "black", "mypy", "twine", "pre-commit",
+    "types-requests",
+]
 test = ["pytest", "pytest-watch"]
 
 [tool.setuptools]
