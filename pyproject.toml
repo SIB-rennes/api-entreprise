@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-library-template"
+dynamic = ["version"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+python-library-template = "python_library_template.help:main"
+
+
+[project.optional-dependencies]
+dev = ["build", "black", "mypy", "twine", "pre-commit"]
+test = ["pytest", "pytest-watch"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+yatotem2scdl = ["data/**"]

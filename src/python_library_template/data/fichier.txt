@@ -1,0 +1,1 @@
+Ceci est un fichier d'exemple qui sera inclu avec les sources lors du packaging
