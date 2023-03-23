@@ -15,7 +15,7 @@ def _self(*args):
 
 
 def _handle_httperror(response: Response):
-    schema = ApiErrorResponse.MarshmallowSchema()
+    schema = ApiErrorResponse.ma_schema
     api_error_response = schema.load(response.json())
     raise ApiError(api_error_response)
 

@@ -73,7 +73,7 @@ class ApiEntreprise:
         return urljoin(self._config.base_url, API_ENTREPRISE_VERSION)
 
     def _json_to_donnees_etab(self, json):
-        schema = DonneesEtablissement.MarshmallowSchema()
+        schema = DonneesEtablissement.ma_schema
 
         donnees = schema.load(json["data"])
         return donnees
