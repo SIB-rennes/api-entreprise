@@ -1,0 +1,84 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiI1MmE1YmZjMi1jMzUwLTQ4ZjQtYjY5Ni05ZWE3NmRiM2VmMjkiLCJqdGkiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJzY29wZXMiOlsiY2VydGlmaWNhdF9yZ2VfYWRlbWUiLCJtc2FfY290aXNhdGlvbnMiLCJlbnRyZXByaXNlcyIsImV4dHJhaXRzX3JjcyIsImNlcnRpZmljYXRfb3BxaWJpIiwiYXNzb2NpYXRpb25zIiwiZXRhYmxpc3NlbWVudHMiLCJmbnRwX2NhcnRlX3BybyIsInF1YWxpYmF0IiwiZW50cmVwcmlzZXNfYXJ0aXNhbmFsZXMiLCJjZXJ0aWZpY2F0X2NuZXRwIiwiZW9yaV9kb3VhbmVzIiwicHJvYnRwIiwiYWN0ZXNfaW5waSIsImV4dHJhaXRfY291cnRfaW5waSIsImF0dGVzdGF0aW9uc19zb2NpYWxlcyIsImxpYXNzZV9maXNjYWxlIiwiYXR0ZXN0YXRpb25zX2Zpc2NhbGVzIiwiZXhlcmNpY2VzIiwiY29udmVudGlvbnNfY29sbGVjdGl2ZXMiLCJiaWxhbnNfaW5waSIsImRvY3VtZW50c19hc3NvY2lhdGlvbiIsImNlcnRpZmljYXRfYWdlbmNlX2JpbyIsImJpbGFuc19lbnRyZXByaXNlX2JkZiIsImF0dGVzdGF0aW9uc19hZ2VmaXBoIiwibWVzcmlfaWRlbnRpZmlhbnQiLCJtZXNyaV9pZGVudGl0ZSIsIm1lc3JpX2luc2NyaXB0aW9uX2V0dWRpYW50IiwibWVzcmlfaW5zY3JpcHRpb25fYXV0cmUiLCJtZXNyaV9hZG1pc3Npb24iLCJtZXNyaV9ldGFibGlzc2VtZW50cyIsInBvbGVfZW1wbG9pX2lkZW50aXRlIiwicG9sZV9lbXBsb2lfYWRyZXNzZSIsInBvbGVfZW1wbG9pX2NvbnRhY3QiLCJwb2xlX2VtcGxvaV9pbnNjcmlwdGlvbiIsImNuYWZfcXVvdGllbnRfZmFtaWxpYWwiLCJjbmFmX2FsbG9jYXRhaXJlcyIsImNuYWZfZW5mYW50cyIsImNuYWZfYWRyZXNzZSIsImNub3VzX3N0YXR1dF9ib3Vyc2llciIsInVwdGltZSIsImNub3VzX2VjaGVsb25fYm91cnNlIiwiY25vdXNfZW1haWwiLCJjbm91c19wZXJpb2RlX3ZlcnNlbWVudCIsImNub3VzX3N0YXR1dF9ib3Vyc2UiLCJjbm91c192aWxsZV9ldHVkZXMiLCJjbm91c19pZGVudGl0ZSIsImRnZmlwX2RlY2xhcmFudDFfbm9tIiwiZGdmaXBfZGVjbGFyYW50MV9ub21fbmFpc3NhbmNlIiwiZGdmaXBfZGVjbGFyYW50MV9wcmVub21zIiwiZGdmaXBfZGVjbGFyYW50MV9kYXRlX25haXNzYW5jZSIsImRnZmlwX2RlY2xhcmFudDJfbm9tIiwiZGdmaXBfZGVjbGFyYW50Ml9ub21fbmFpc3NhbmNlIiwiZGdmaXBfZGVjbGFyYW50Ml9wcmVub21zIiwiZGdmaXBfZGVjbGFyYW50Ml9kYXRlX25haXNzYW5jZSIsImRnZmlwX2RhdGVfcmVjb3V2cmVtZW50IiwiZGdmaXBfZGF0ZV9ldGFibGlzc2VtZW50IiwiZGdmaXBfYWRyZXNzZV9maXNjYWxlX3RheGF0aW9uIiwiZGdmaXBfYWRyZXNzZV9maXNjYWxlX2FubmVlIiwiZGdmaXBfbm9tYnJlX3BhcnRzIiwiZGdmaXBfbm9tYnJlX3BlcnNvbm5lc19hX2NoYXJnZSIsImRnZmlwX3NpdHVhdGlvbl9mYW1pbGlhbGUiLCJkZ2ZpcF9yZXZlbnVfYnJ1dF9nbG9iYWwiLCJkZ2ZpcF9yZXZlbnVfaW1wb3NhYmxlIiwiZGdmaXBfaW1wb3RfcmV2ZW51X25ldF9hdmFudF9jb3JyZWN0aW9ucyIsImRnZmlwX21vbnRhbnRfaW1wb3QiLCJkZ2ZpcF9yZXZlbnVfZmlzY2FsX3JlZmVyZW5jZSIsImRnZmlwX2FubmVlX2ltcG90IiwiZGdmaXBfYW5uZWVfcmV2ZW51cyIsImRnZmlwX2VycmV1cl9jb3JyZWN0aWYiLCJkZ2ZpcF9zaXR1YXRpb25fcGFydGllbGxlIl0sInN1YiI6InN0YWdpbmcgZGV2ZWxvcG1lbnQiLCJpYXQiOjE2NjY4NjQwNzQsInZlcnNpb24iOiIxLjAiLCJleHAiOjE5ODI0ODMyNzR9.u2kMWzll3iCTczUOqMQbpS66VfrVzI2lLiyGEPcKAec
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.28.2
+    method: GET
+    uri: https://staging.entreprise.api.gouv.fr/v3/insee/sirene/etablissements/25351449100047?context=test&object=test&recipient=26350579400028
+  response:
+    body:
+      string: "{\"data\":{\"siret\":\"30613890001294\",\"siege_social\":true,\"etat_administratif\":\"A\",\"date_fermeture\":1634133818,\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
+        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
+        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"diffusable_commercialement\":true,\"enseigne\":\"Coiff
+        Land, CoiffureLand\",\"unite_legale\":{\"siren\":\"130025265\",\"siret_siege_social\":\"13002526500013\",\"type\":\"personne_morale\",\"personne_morale_attributs\":{\"raison_sociale\":\"DIRECTION
+        INTERMINISTERIELLE DU NUMERIQUE\",\"sigle\":\"DINUM\"},\"personne_physique_attributs\":{\"pseudonyme\":\"DJ
+        Falcon\",\"prenom_usuel\":\"Jean\",\"prenom_1\":\"Jean\",\"prenom_2\":\"Jacques\",\"prenom_3\":\"Pierre\",\"prenom_4\":\"Paul\",\"nom_usage\":\"Dupont\",\"nom_naissance\":\"Dubois\",\"sexe\":\"M\"},\"categorie_entreprise\":\"GE\",\"diffusable_commercialement\":true,\"forme_juridique\":{\"code\":\"7120\",\"libelle\":\"Service
+        central d'un minist\xE8re\"},\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
+        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
+        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"etat_administratif\":\"A\",\"economie_sociale_et_solidaire\":true,\"date_creation\":1634103818},\"adresse\":{\"numero_voie\":\"22\",\"indice_repetition_voie\":\"dummy\",\"type_voie\":\"RUE\",\"libelle_voie\":\"DE
+        LA PAIX\",\"complement_adresse\":\"ZAE SAINT GUENAULT\",\"code_commune\":\"75112\",\"code_postal\":\"75016\",\"distribution_speciale\":\"dummy\",\"code_cedex\":\"75590\",\"libelle_cedex\":\"PARIS
+        CEDEX 12\",\"libelle_commune\":\"PARIS 12\",\"libelle_commune_etranger\":\"dummy\",\"code_pays_etranger\":\"99132\",\"libelle_pays_etranger\":\"ROYAUME-UNI\",\"acheminement_postal\":{\"l1\":\"DIRECTION
+        INTERMINISTERIELLE DU NUMERIQUE\",\"l2\":\"JEAN MARIE DURAND\",\"l3\":\"ZAE
+        SAINT GUENAULT\",\"l4\":\"51 BIS RUE DE LA PAIX\",\"l5\":\"CS 72809\",\"l6\":\"75256
+        PARIX CEDEX 12\",\"l7\":\"FRANCE\"}},\"date_creation\":1634103818},\"links\":{\"unite_legale\":\"https://entreprise.api.gouv.fr/api/v3/insee/unites_legales/130025265\"},\"meta\":{\"date_derniere_mise_a_jour\":1618396818,\"redirect_from_siret\":\"30613890000010\"}}"
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/vnd.api+json
+      Date:
+      - Thu, 23 Mar 2023 12:25:21 GMT
+      ETag:
+      - W/"28ac0b92cd8ea075c7a837262282cbdb"
+      RateLimit-Limit:
+      - '250'
+      RateLimit-Remaining:
+      - '249'
+      RateLimit-Reset:
+      - '1679574360'
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx + Phusion Passenger(R) 6.0.17
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Powered-By:
+      - Phusion Passenger(R) 6.0.17
+      X-Request-Id:
+      - ab162d00-331e-4dea-bb28-96e134e8b972
+      X-Response-Cached:
+      - 'false'
+      X-Runtime:
+      - '0.093871'
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept, Origin
+    status:
+      code: 200
+      message: OK
+version: 1

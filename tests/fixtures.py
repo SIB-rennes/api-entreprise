@@ -26,6 +26,11 @@ def empty_ratelimiter():
     return Limiter(RequestRate(0, 60))
 
 
+@pytest.fixture
+def too_large_ratelimiter():
+    return Limiter(RequestRate(10000, 60))
+
+
 def make_api(url, token, ratelimiter):
     context = ContextInfo("test", "26350579400028", "test")
     config = Config(
@@ -46,3 +51,8 @@ def api(staging_url, staging_token, ratelimiter):
 @pytest.fixture
 def api_with_emptyratelimiter(staging_url, staging_token, empty_ratelimiter):
     return make_api(staging_url, staging_token, empty_ratelimiter)
+
+
+@pytest.fixture
+def api_with_toolargeratelimiter(staging_url, staging_token, too_large_ratelimiter):
+    return make_api(staging_url, staging_token, too_large_ratelimiter)

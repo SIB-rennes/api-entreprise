@@ -24,7 +24,7 @@ dev = [
     "build", "black", "mypy", "twine", "pre-commit",
     "types-requests",
 ]
-test = ["pytest", "pytest-watch"]
+test = ["pytest", "vcrpy>=4.2"]
 
 [tool.setuptools]
 include-package-data = true
