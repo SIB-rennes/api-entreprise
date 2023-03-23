@@ -2,6 +2,7 @@ import requests
 import threading
 from urllib.parse import urljoin
 
+from . import logger
 from .models.config import Config
 from .models.donnees_etablissement import DonneesEtablissement
 from . import API_ENTREPRISE_RATELIMITER_ID
@@ -13,6 +14,8 @@ from .handlers import (
     _handle_httperr_404_returns_none,
     _handle_response_in_error,
 )
+
+from pyrate_limiter import BucketFullException
 
 _ratelimiterlock = threading.Lock()
 
@@ -77,3 +80,15 @@ class ApiEntreprise:
 
         donnees = schema.load(json["data"])
         return donnees
+
+    def empty_ratelimiter(self):
+        logger.info("On vide le ratelimiter")
+        while True:
+            try:
+                with self._ratelimiter.ratelimit(
+                    API_ENTREPRISE_RATELIMITER_ID, delay=False
+                ):
+                    pass
+            except BucketFullException as e:
+                break
+        logger.info("ratelimiter vide")

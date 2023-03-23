@@ -33,3 +33,18 @@ def test_ratelimithit(api_with_emptyratelimiter: ApiEntreprise):
 def test_429_answer(api: ApiEntreprise):
     with pytest.raises(Http429Error) as e_1:
         api.donnees_etablissement(25351449100047)
+
+    #
+    # On veut vider le ratelimiter côté client
+    # lorsque l'on tombe sur une erreur 429
+    #
+    # Donc:
+    # Cet appel ne devrait pas donner lieu à une requête
+    #
+    with pytest.raises(LimitHitError) as e_2:
+        api.donnees_etablissement(25351449100047)
+
+    assert isinstance(e_1.value, Http429Error)
+
+    assert isinstance(e_2.value, LimitHitError)
+    assert not isinstance(e_2.value, Http429Error)

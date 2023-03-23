@@ -50,6 +50,9 @@ def _handle_response_429(response: Response, api_entreprise):
         f"{remaining}/{limit} - reset: {reset}. retry after: {retry_after}. "
         f"Quant à lui, notre ratelimiter a un volume de {volume}"
     )
+
+    api_entreprise.empty_ratelimiter()
+
     raise Http429Error(retry_after)
 
 
