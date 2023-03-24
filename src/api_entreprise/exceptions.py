@@ -31,6 +31,7 @@ class Http429Error(LimitHitError):
         if delay < 1:
             delay = default_delay
             logger.warning(
+                "[API ENTREPRISE]"
                 f"Retry-after: {retry_after} incohérent. On attendra {default_delay}"
             )
 

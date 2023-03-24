@@ -1,3 +1,4 @@
+import time
 import requests
 import threading
 from urllib.parse import urljoin
@@ -82,11 +83,15 @@ class ApiEntreprise:
         return donnees
 
     def empty_ratelimiter(self):
-        logger.info("On vide le ratelimiter")
+        start = time.perf_counter()
+
+        logger.debug("[API ENTREPRISE] On vide le ratelimiter")
         while True:
             try:
                 with self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER, delay=False):
                     pass
             except BucketFullException as e:
                 break
-        logger.info("ratelimiter vide")
+
+        seconds = time.perf_counter() - start
+        logger.debug(f"[API ENTREPRISE] ratelimiter vidé en {seconds:.03f} secondes")

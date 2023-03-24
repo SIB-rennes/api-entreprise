@@ -45,6 +45,7 @@ def _handle_response_429(response: Response, api_entreprise):
     retry_after = headers.get("Retry-After")
 
     logger.warning(
+        "[API ENTREPRISE]"
         f"Ratelimiter de l'API entreprise déclenché. "
         "Cela ne devrait pas se produire (ou peu)! "
         f"{remaining}/{limit} - reset: {reset}. retry after: {retry_after}. "
