@@ -26,10 +26,6 @@ class ApiEntreprise:
         self._config = conf
         self._ratelimiter = conf.rate_limiter
 
-    @_handle_response_in_error
-    @_handle_httperr_404_returns_none
-    @_handle_httperr_429_ex
-    @_handle_bucketfull_ex
     def donnees_etablissement(self, siret: str) -> DonneesEtablissement | None:
         """Retourne les données établissement pour un siret donné
 
@@ -39,11 +35,18 @@ class ApiEntreprise:
         Returns:
             DonneesEtablissement | None: None si établissement non trouvé
         """
+        json = self.raw_donnees_etablissement(siret)
+        return self._json_to_donnees_etab(json)
 
+    @_handle_response_in_error
+    @_handle_httperr_404_returns_none
+    @_handle_httperr_429_ex
+    @_handle_bucketfull_ex
+    def raw_donnees_etablissement(self, siret: str) -> dict | None:
         response = self._donnees_etablissement(siret)
         response.raise_for_status()
         json = response.json()
-        return self._json_to_donnees_etab(json)
+        return json
 
     def _donnees_etablissement(self, siret) -> requests.Response:
         # On utilise un lock avec le ratelimiter

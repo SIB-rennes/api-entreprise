@@ -7,6 +7,12 @@ vcr_folder = "tests/vcr/donnees_etablissement/"
 
 
 @vcr.use_cassette(f"{vcr_folder}/megalis.yaml")
+def test_raw_donnees_etablissement(api: ApiEntreprise):
+    etablissement = api.raw_donnees_etablissement(25351449100047)
+    assert etablissement is not None
+
+
+@vcr.use_cassette(f"{vcr_folder}/megalis.yaml")
 def test_make_api_entreprise(api: ApiEntreprise):
     etablissement = api.donnees_etablissement(25351449100047)
     assert etablissement is not None
