@@ -59,7 +59,7 @@ class ApiEntreprise:
                 params=self._query_params,
             )
 
-            if response.status_code == 429:
+            if response.status_code == 429:  # On vide notre ratelimiter ici
                 self._empty_ratelimiter()
 
             return response
@@ -89,7 +89,7 @@ class ApiEntreprise:
     def _empty_ratelimiter(self):
         start = time.perf_counter()
 
-        logger.warning(
+        logger.debug(
             "[API ENTREPRISE] On a reçu une réponse 429 (too many requests). "
             "Par précaution, on consomme toutes les utilisation de la ressource "
             f"{JSON_RESOURCE_IDENTIFIER} de notre ratelimiter..."
@@ -101,5 +101,8 @@ class ApiEntreprise:
             except BucketFullException as e:
                 break
 
-        seconds = time.perf_counter() - start
-        logger.warning(f"[API ENTREPRISE] ratelimiter vidé en {seconds:.03f} secondes")
+        elapsed = time.perf_counter() - start
+        if elapsed > 1:
+            logger.warning(
+                f"[API ENTREPRISE] ratelimiter vidé en {elapsed:.03f} secondes"
+            )
