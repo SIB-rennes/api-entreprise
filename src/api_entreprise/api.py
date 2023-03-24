@@ -58,6 +58,10 @@ class ApiEntreprise:
                 headers=self._auth_headers,
                 params=self._query_params,
             )
+
+            if response.status_code == 429:
+                self._empty_ratelimiter()
+
             return response
 
     @property
@@ -82,10 +86,14 @@ class ApiEntreprise:
         donnees = schema.load(json["data"])
         return donnees
 
-    def empty_ratelimiter(self):
+    def _empty_ratelimiter(self):
         start = time.perf_counter()
 
-        logger.warning("[API ENTREPRISE] On vide le ratelimiter")
+        logger.warning(
+            "[API ENTREPRISE] On a reçu une réponse 429 (too many requests). "
+            "Par précaution, on consomme toutes les utilisation de la ressource "
+            f"{JSON_RESOURCE_IDENTIFIER} de notre ratelimiter..."
+        )
         while True:
             try:
                 with self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER, delay=False):
