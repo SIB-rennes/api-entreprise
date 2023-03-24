@@ -4,7 +4,7 @@ from requests import HTTPError, Response
 from pyrate_limiter import BucketFullException, Limiter
 
 from . import logger
-from . import API_ENTREPRISE_RATELIMITER_ID
+from . import JSON_RESOURCE_IDENTIFIER
 
 from .exceptions import Http429Error, LimitHitError, ApiError
 from .models.errors import ApiErrorResponse
@@ -36,7 +36,7 @@ def _handle_response_in_error(f):
 
 def _handle_response_429(response: Response, api_entreprise):
     ratelimiter: Limiter = api_entreprise._ratelimiter
-    volume = ratelimiter.get_current_volume(API_ENTREPRISE_RATELIMITER_ID)
+    volume = ratelimiter.get_current_volume(JSON_RESOURCE_IDENTIFIER)
 
     headers = response.headers
     limit = headers.get("RateLimit-Limit")

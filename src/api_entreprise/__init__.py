@@ -2,7 +2,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-API_ENTREPRISE_RATELIMITER_ID = "api_entreprise"
+JSON_RESOURCE_IDENTIFIER = "api_entreprise"
+"""Identifiant des ressources retournant du json pour l'utilisation avec le ratelimiter"""
 API_ENTREPRISE_VERSION = "v3"
 
 from .api import ApiEntreprise, Config

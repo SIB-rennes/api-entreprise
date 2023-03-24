@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 from . import logger
 from .models.config import Config
 from .models.donnees_etablissement import DonneesEtablissement
-from . import API_ENTREPRISE_RATELIMITER_ID
+from . import JSON_RESOURCE_IDENTIFIER
 from . import API_ENTREPRISE_VERSION
 
 from .handlers import (
@@ -50,7 +50,7 @@ class ApiEntreprise:
         # d'un grand nombre de tâches en //
         with (
             _ratelimiterlock as _,
-            self._ratelimiter.ratelimit(API_ENTREPRISE_RATELIMITER_ID) as _,
+            self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
         ):
             response = requests.get(
                 f"{self._base_url}/insee/sirene/etablissements/{siret}",
@@ -85,9 +85,7 @@ class ApiEntreprise:
         logger.info("On vide le ratelimiter")
         while True:
             try:
-                with self._ratelimiter.ratelimit(
-                    API_ENTREPRISE_RATELIMITER_ID, delay=False
-                ):
+                with self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER, delay=False):
                     pass
             except BucketFullException as e:
                 break
