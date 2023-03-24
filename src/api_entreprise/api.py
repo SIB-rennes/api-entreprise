@@ -85,7 +85,7 @@ class ApiEntreprise:
     def empty_ratelimiter(self):
         start = time.perf_counter()
 
-        logger.debug("[API ENTREPRISE] On vide le ratelimiter")
+        logger.warning("[API ENTREPRISE] On vide le ratelimiter")
         while True:
             try:
                 with self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER, delay=False):
@@ -94,4 +94,4 @@ class ApiEntreprise:
                 break
 
         seconds = time.perf_counter() - start
-        logger.debug(f"[API ENTREPRISE] ratelimiter vidé en {seconds:.03f} secondes")
+        logger.warning(f"[API ENTREPRISE] ratelimiter vidé en {seconds:.03f} secondes")
