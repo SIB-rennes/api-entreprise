@@ -15,8 +15,8 @@ dependencies = [
     "marshmallow-dataclass>=8.5"
 ]
 
-# [project.scripts]
-# api-entreprise = "python_library_template.help:main"
+[project.scripts]
+api-entreprise = "api_entreprise.cli:main"
 
 
 [project.optional-dependencies]
