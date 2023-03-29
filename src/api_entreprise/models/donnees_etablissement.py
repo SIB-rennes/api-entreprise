@@ -3,6 +3,24 @@ from dataclasses import dataclass, field
 from ..utils.metaclasses import _AddMarshmallowSchema
 
 
+## Tranche effectif salarié
+@dataclass
+class TrancheEffectifSalarie:
+    code: str | None
+    intitule: str | None
+    date_reference: str | None
+    de: int | None
+    a: int | None
+
+
+## Activite Principale
+@dataclass
+class ActivitePrincipale:
+    code: str
+    libelle: str | None
+    nomenclature: str
+
+
 ## Unité légale
 @dataclass
 class PersonneMoraleAttributs:
@@ -18,8 +36,10 @@ class FormeJuridique:
 
 @dataclass
 class UniteLegale:
-    forme_juridique: FormeJuridique
     personne_morale_attributs: PersonneMoraleAttributs
+    forme_juridique: FormeJuridique
+    activite_principale: ActivitePrincipale
+    tranche_effectif_salarie: TrancheEffectifSalarie
 
 
 ## Adresse
@@ -45,7 +65,15 @@ class Adresse:
 class DonneesEtablissement(metaclass=_AddMarshmallowSchema):
     siret: str
 
+    activite_principale: ActivitePrincipale
+
+    tranche_effectif_salarie: TrancheEffectifSalarie
+
     unite_legale: UniteLegale
+
+    date_creation: int
+    """Date de création sous format de timestamp"""
+
     adresse: Adresse
 
     adresse_postale_legere: str = field(init=False)
