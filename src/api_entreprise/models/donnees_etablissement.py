@@ -40,6 +40,7 @@ class UniteLegale:
     forme_juridique: FormeJuridique
     activite_principale: ActivitePrincipale
     tranche_effectif_salarie: TrancheEffectifSalarie
+    economie_sociale_et_solidaire: bool | None
 
 
 ## Adresse
