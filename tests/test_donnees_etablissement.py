@@ -1,7 +1,7 @@
 import vcr
 from .fixtures import *
 
-from api_entreprise import ApiError, LimitHitError, Http429Error
+from api_entreprise import ApiError, LimitHitError, Http429Error, DonneesEtablissement
 
 from .fixtures import vcr_folder
 
@@ -13,9 +13,10 @@ def test_raw_donnees_etablissement(api: ApiEntreprise):
 
 
 @vcr.use_cassette(f"{vcr_folder}/megalis.yaml")
-def test_make_api_entreprise(api: ApiEntreprise):
+def test_donnees_etablissement(api: ApiEntreprise):
     etablissement = api.donnees_etablissement(25351449100047)
     assert etablissement is not None
+    assert isinstance(etablissement, DonneesEtablissement)
 
 
 @vcr.use_cassette(f"{vcr_folder}/same_recipient.error.yaml")

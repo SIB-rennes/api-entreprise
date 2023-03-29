@@ -101,3 +101,17 @@ def _handle_httperr_404_returns_none(f):
                 raise
 
     return inner
+
+
+def raw_call_handler(f):
+    """handler qui combine la gestion d'erreur pour un appel API entreprise"""
+
+    @functools.wraps(f)
+    @_handle_response_in_error
+    @_handle_httperr_404_returns_none
+    @_handle_httperr_429_ex
+    @_handle_bucketfull_ex
+    def inner(*args, **kwargs):
+        return f(*args, **kwargs)
+
+    return inner

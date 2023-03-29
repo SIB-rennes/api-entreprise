@@ -2,7 +2,7 @@ import vcr
 
 from .fixtures import *
 
-from api_entreprise import ApiEntreprise
+from api_entreprise import ApiEntreprise, CertificationRgeHolder
 
 from .fixtures import vcr_folder
 
@@ -18,3 +18,5 @@ def test_ca(api: ApiEntreprise):
     certif = api.certifications_rge(25351449100047)
     assert certif is not None
     assert isinstance(certif, list)
+    assert len(certif) > 0
+    assert isinstance(certif[0], CertificationRgeHolder)

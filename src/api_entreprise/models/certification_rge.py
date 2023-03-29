@@ -22,5 +22,5 @@ class CertificationRge:
 
 
 @dataclass
-class CertificationRgeResponse(metaclass=_AddMarshmallowSchema):
+class CertificationRgeHolder(metaclass=_AddMarshmallowSchema):
     data: CertificationRge

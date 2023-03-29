@@ -11,6 +11,9 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
+- Renommage model
+- handler qui groupe plusieurs autres handlers
+
 ### Fixed
 
 ## [3.0.9]

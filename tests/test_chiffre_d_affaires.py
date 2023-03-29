@@ -2,7 +2,7 @@ import vcr
 
 from .fixtures import *
 
-from api_entreprise import ApiEntreprise
+from api_entreprise import ApiEntreprise, ChiffreDaffairesHolder
 
 from .fixtures import vcr_folder
 
@@ -17,4 +17,5 @@ def test_raw_ca(api: ApiEntreprise):
 def test_ca(api: ApiEntreprise):
     ca = api.chiffre_d_affaires(25351449100047)
     assert ca is not None
-    assert isinstance(ca, list)
+    assert len(ca) > 0
+    assert isinstance(ca[0], ChiffreDaffairesHolder)

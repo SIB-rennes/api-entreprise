@@ -3,5 +3,5 @@ from ..utils.metaclasses import _AddMarshmallowSchema
 
 
 @dataclass
-class NumeroTvaReponse(metaclass=_AddMarshmallowSchema):
+class NumeroTvaHolder(metaclass=_AddMarshmallowSchema):
     tva_number: str

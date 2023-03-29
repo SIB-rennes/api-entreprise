@@ -7,5 +7,11 @@ JSON_RESOURCE_IDENTIFIER = "api_entreprise"
 API_ENTREPRISE_VERSION = "v3"
 
 from .api import ApiEntreprise, Config
-from .models import ContextInfo
 from .exceptions import ApiError, Http429Error, LimitHitError
+
+from .models import ContextInfo
+
+from .models.donnees_etablissement import *
+from .models.numero_tva import *
+from .models.chiffre_daffaires import *
+from .models.certification_rge import *

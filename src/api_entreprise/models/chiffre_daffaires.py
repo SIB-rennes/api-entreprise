@@ -10,5 +10,5 @@ class ChiffreDaffaires:
 
 
 @dataclass
-class ChiffreDaffairesResponse(metaclass=_AddMarshmallowSchema):
+class ChiffreDaffairesHolder(metaclass=_AddMarshmallowSchema):
     data: ChiffreDaffaires
