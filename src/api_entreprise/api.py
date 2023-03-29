@@ -8,6 +8,7 @@ from .models.config import Config
 from .models.donnees_etablissement import DonneesEtablissement
 from .models.numero_tva import NumeroTvaReponse
 from .models.chiffre_daffaires import ChiffreDaffairesResponse
+from .models.certification_rge import CertificationRgeResponse
 from . import JSON_RESOURCE_IDENTIFIER
 from . import API_ENTREPRISE_VERSION
 
@@ -52,7 +53,7 @@ class ApiEntreprise:
         json = self.raw_numero_tva_intercommunautaire(siren)
         return self._json_to_numero_tva_response(json)
 
-    def chiffre_d_affaires(self, siret: str | int) -> ChiffreDaffairesResponse | None:
+    def chiffre_d_affaires(self, siret: str | int) -> list[ChiffreDaffairesResponse]:
         """Retourne le chiffre d'affaires des trois derniers exercices
         faites auprès de la DGFIP
 
@@ -62,6 +63,15 @@ class ApiEntreprise:
 
         json = self.raw_chiffre_d_affaires(siret)
         return self._json_to_chiffre_d_affaires(json)
+
+    def certifications_rge(self, siret: str | int) -> list[CertificationRgeResponse]:
+        """Retourne les certifications RGE (Reconnu Garant de l'Environnement) d'un établissement
+
+        Returns:
+            list[CertificationRgeResponse]:
+        """
+        json = self.raw_certification_rge(siret)
+        return self._json_to_certification_rge(json)
 
     @_handle_response_in_error
     @_handle_httperr_404_returns_none
@@ -89,6 +99,16 @@ class ApiEntreprise:
     @_handle_bucketfull_ex
     def raw_chiffre_d_affaires(self, siret: str | int) -> dict | None:
         response = self._chiffre_d_affaires(siret)
+        response.raise_for_status()
+        json = response.json()
+        return json
+
+    @_handle_response_in_error
+    @_handle_httperr_404_returns_none
+    @_handle_httperr_429_ex
+    @_handle_bucketfull_ex
+    def raw_certification_rge(self, siret: str | int) -> dict | None:
+        response = self._certification_rge(siret)
         response.raise_for_status()
         json = response.json()
         return json
@@ -145,6 +165,24 @@ class ApiEntreprise:
 
             return response
 
+    def _certification_rge(self, siret: str | int) -> requests.Response:
+        with (
+            _ratelimiterlock as _,
+            self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
+        ):
+            # https://entreprise.api.gouv.fr/v3/ademe/etablissements/{siret}/certification_rge
+
+            response = requests.get(
+                join_fragments(
+                    self._base_url, f"ademe/etablissements/{siret}/certification_rge"
+                ),
+                headers=self._auth_headers,
+                params=self._query_params,
+            )
+            self._empty_ratelimiter_if_429(response)
+
+            return response
+
     @property
     def _auth_headers(self):
         return {"Authorization": f"Bearer {self._config.token}"}
@@ -178,6 +216,12 @@ class ApiEntreprise:
 
         ca = schema.load(json["data"])
         return ca
+
+    def _json_to_certification_rge(self, json):
+        schema = CertificationRgeResponse.ma_schema_many
+
+        certif = schema.load(json["data"])
+        return certif
 
     def _empty_ratelimiter_if_429(self, response: requests.Response):
         if response.status_code == 429:

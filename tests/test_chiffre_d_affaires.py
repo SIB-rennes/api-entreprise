@@ -17,3 +17,4 @@ def test_raw_ca(api: ApiEntreprise):
 def test_ca(api: ApiEntreprise):
     ca = api.chiffre_d_affaires(25351449100047)
     assert ca is not None
+    assert isinstance(ca, list)
