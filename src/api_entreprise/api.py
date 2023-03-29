@@ -1,6 +1,7 @@
 import time
 import requests
 import threading
+from api_entreprise.models.certification_qualibat import CertificationQualibat
 from api_entreprise.utils.url import join_fragments
 
 from . import logger
@@ -68,6 +69,15 @@ class ApiEntreprise:
         json = self.raw_certification_rge(siret)
         return self._json_to_dataclass(CertificationRgeHolder, json, many=True)
 
+    def certification_qualibat(self, siret: str | int) -> CertificationQualibat | None:
+        """Certification qualibat
+
+        Returns:
+            CertificationQualibat | None: None si pas de certification
+        """
+        json = self.raw_certification_qualibat(siret)
+        return self._json_to_dataclass(CertificationQualibat, json)
+
     def raw_donnees_etablissement(self, siret: str) -> dict | None:
         f = lambda: self._donnees_etablissement(siret)
         return self._raw(f)
@@ -82,6 +92,10 @@ class ApiEntreprise:
 
     def raw_certification_rge(self, siret: str | int) -> dict | None:
         f = lambda: self._certification_rge(siret)
+        return self._raw(f)
+
+    def raw_certification_qualibat(self, siret: str | int) -> dict | None:
+        f = lambda: self._certification_qualibat(siret)
         return self._raw(f)
 
     @raw_call_handler
@@ -113,6 +127,13 @@ class ApiEntreprise:
         url = join_fragments(
             self._base_url,
             f"ademe/etablissements/{siret}/certification_rge",
+        )
+        return self._perform_get(url)
+
+    def _certification_qualibat(self, siret: str | int) -> requests.Response:
+        url = join_fragments(
+            self._base_url,
+            f"qualibat/etablissements/{siret}/certification_batiment",
         )
         return self._perform_get(url)
 

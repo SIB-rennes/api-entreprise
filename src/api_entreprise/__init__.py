@@ -15,3 +15,4 @@ from .models.donnees_etablissement import *
 from .models.numero_tva import *
 from .models.chiffre_daffaires import *
 from .models.certification_rge import *
+from .models.certification_qualibat import *
