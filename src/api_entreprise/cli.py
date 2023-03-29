@@ -77,7 +77,7 @@ def main():
     ctx = ContextInfo(args.context, args.recipient, args.object)
 
     conf = Config(
-        base_url=urljoin(args.base_url, "v3"),
+        base_url=args.base_url,
         token=args.token,
         default_context_info=ctx,
         rate_limiter=Limiter(RequestRate(250, 60)),
