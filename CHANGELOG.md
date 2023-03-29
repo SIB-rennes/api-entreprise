@@ -7,6 +7,8 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
+- Ajout du endpoint pour récupérer la TVA intercommunautaire
+
 ### Changed
 
 ### Fixed

@@ -3,7 +3,7 @@ from .fixtures import *
 
 from api_entreprise import ApiError, LimitHitError, Http429Error
 
-vcr_folder = "tests/vcr/donnees_etablissement/"
+from .fixtures import vcr_folder
 
 
 @vcr.use_cassette(f"{vcr_folder}/megalis.yaml")
