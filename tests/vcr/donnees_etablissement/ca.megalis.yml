@@ -13,23 +13,10 @@ interactions:
       User-Agent:
       - python-requests/2.28.2
     method: GET
-    uri: https://staging.entreprise.api.gouv.fr/v3/insee/sirene/etablissements/25351449100047?context=test&object=test&recipient=26350579400028
+    uri: https://staging.entreprise.api.gouv.fr/v3/dgfip/etablissements/25351449100047/chiffres_affaires?context=test&object=test&recipient=26350579400028
   response:
     body:
-      string: "{\"data\":{\"siret\":\"30613890001294\",\"siege_social\":true,\"etat_administratif\":\"A\",\"date_fermeture\":1634133818,\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
-        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
-        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"diffusable_commercialement\":true,\"enseigne\":\"Coiff
-        Land, CoiffureLand\",\"unite_legale\":{\"siren\":\"130025265\",\"siret_siege_social\":\"13002526500013\",\"type\":\"personne_morale\",\"personne_morale_attributs\":{\"raison_sociale\":\"DIRECTION
-        INTERMINISTERIELLE DU NUMERIQUE\",\"sigle\":\"DINUM\"},\"personne_physique_attributs\":{\"pseudonyme\":\"DJ
-        Falcon\",\"prenom_usuel\":\"Jean\",\"prenom_1\":\"Jean\",\"prenom_2\":\"Jacques\",\"prenom_3\":\"Pierre\",\"prenom_4\":\"Paul\",\"nom_usage\":\"Dupont\",\"nom_naissance\":\"Dubois\",\"sexe\":\"M\"},\"categorie_entreprise\":\"GE\",\"diffusable_commercialement\":true,\"forme_juridique\":{\"code\":\"7120\",\"libelle\":\"Service
-        central d'un minist\xE8re\"},\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
-        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
-        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"etat_administratif\":\"A\",\"economie_sociale_et_solidaire\":true,\"date_creation\":1634103818},\"adresse\":{\"numero_voie\":\"22\",\"indice_repetition_voie\":\"dummy\",\"type_voie\":\"RUE\",\"libelle_voie\":\"DE
-        LA PAIX\",\"complement_adresse\":\"ZAE SAINT GUENAULT\",\"code_commune\":\"75112\",\"code_postal\":\"75016\",\"distribution_speciale\":\"dummy\",\"code_cedex\":\"75590\",\"libelle_cedex\":\"PARIS
-        CEDEX 12\",\"libelle_commune\":\"PARIS 12\",\"libelle_commune_etranger\":\"dummy\",\"code_pays_etranger\":\"99132\",\"libelle_pays_etranger\":\"ROYAUME-UNI\",\"acheminement_postal\":{\"l1\":\"DIRECTION
-        INTERMINISTERIELLE DU NUMERIQUE\",\"l2\":\"JEAN MARIE DURAND\",\"l3\":\"ZAE
-        SAINT GUENAULT\",\"l4\":\"51 BIS RUE DE LA PAIX\",\"l5\":\"CS 72809\",\"l6\":\"75256
-        PARIX CEDEX 12\",\"l7\":\"FRANCE\"}},\"date_creation\":1634103818},\"links\":{\"unite_legale\":\"https://entreprise.api.gouv.fr/api/v3/insee/unites_legales/130025265\"},\"meta\":{\"date_derniere_mise_a_jour\":1618396818,\"redirect_from_siret\":\"30613890000010\"}}"
+      string: '{"data":[{"data":{"chiffre_affaires":900001,"date_fin_exercice":"2015-12-01"},"links":{},"meta":{}}],"meta":{},"links":{}}'
     headers:
       Cache-Control:
       - max-age=0, private, must-revalidate
@@ -40,11 +27,11 @@ interactions:
       Date:
       - Wed, 29 Mar 2023 09:24:01 GMT
       ETag:
-      - W/"28ac0b92cd8ea075c7a837262282cbdb"
+      - W/"74eedebf4a0e3f6311611bececfa55dd"
       RateLimit-Limit:
       - '250'
       RateLimit-Remaining:
-      - '248'
+      - '249'
       RateLimit-Reset:
       - '1680081900'
       Referrer-Policy:
@@ -69,11 +56,11 @@ interactions:
       X-Powered-By:
       - Phusion Passenger(R) 6.0.17
       X-Request-Id:
-      - 93e6c4ca-4b1d-4dee-bbe8-df6c498d767e
+      - 599ac217-640d-4edc-9b47-bed386b54cd6
       X-Response-Cached:
       - 'false'
       X-Runtime:
-      - '0.117434'
+      - '0.177533'
       X-XSS-Protection:
       - 1; mode=block
       vary:

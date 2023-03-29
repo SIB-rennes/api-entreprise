@@ -1,12 +1,13 @@
 import time
 import requests
 import threading
-from urllib.parse import urljoin
+from api_entreprise.utils.url import join_fragments
 
 from . import logger
 from .models.config import Config
 from .models.donnees_etablissement import DonneesEtablissement
 from .models.numero_tva import NumeroTvaReponse
+from .models.chiffre_daffaires import ChiffreDaffairesResponse
 from . import JSON_RESOURCE_IDENTIFIER
 from . import API_ENTREPRISE_VERSION
 
@@ -51,6 +52,17 @@ class ApiEntreprise:
         json = self.raw_numero_tva_intercommunautaire(siren)
         return self._json_to_numero_tva_response(json)
 
+    def chiffre_d_affaires(self, siret: str | int) -> ChiffreDaffairesResponse | None:
+        """Retourne le chiffre d'affaires des trois derniers exercices
+        faites auprès de la DGFIP
+
+        Returns:
+            ChiffreDaffairesResponse | None: None si ressource non trouvée
+        """
+
+        json = self.raw_chiffre_d_affaires(siret)
+        return self._json_to_chiffre_d_affaires(json)
+
     @_handle_response_in_error
     @_handle_httperr_404_returns_none
     @_handle_httperr_429_ex
@@ -71,6 +83,16 @@ class ApiEntreprise:
         json = response.json()
         return json
 
+    @_handle_response_in_error
+    @_handle_httperr_404_returns_none
+    @_handle_httperr_429_ex
+    @_handle_bucketfull_ex
+    def raw_chiffre_d_affaires(self, siret: str | int) -> dict | None:
+        response = self._chiffre_d_affaires(siret)
+        response.raise_for_status()
+        json = response.json()
+        return json
+
     def _donnees_etablissement(self, siret) -> requests.Response:
         # On utilise un lock avec le ratelimiter
         # car ce dernier se comporte mal en situation
@@ -80,7 +102,7 @@ class ApiEntreprise:
             self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
         ):
             response = requests.get(
-                f"{self._base_url}/insee/sirene/etablissements/{siret}",
+                join_fragments(self._base_url, f"insee/sirene/etablissements/{siret}"),
                 headers=self._auth_headers,
                 params=self._query_params,
             )
@@ -95,7 +117,27 @@ class ApiEntreprise:
         ):
             # https://entreprise.api.gouv.fr/v3/european_commission/unites_legales/{siren}/numero_tva
             response = requests.get(
-                f"{self._base_url}/european_commission/unites_legales/{siren}/numero_tva",
+                join_fragments(
+                    self._base_url,
+                    f"european_commission/unites_legales/{siren}/numero_tva",
+                ),
+                headers=self._auth_headers,
+                params=self._query_params,
+            )
+            self._empty_ratelimiter_if_429(response)
+
+            return response
+
+    def _chiffre_d_affaires(self, siret: str | int) -> requests.Response:
+        with (
+            _ratelimiterlock as _,
+            self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
+        ):
+            # https://entreprise.api.gouv.fr/v3/dgfip/etablissements/{siret}/chiffres_affaires
+            response = requests.get(
+                join_fragments(
+                    self._base_url, f"dgfip/etablissements/{siret}/chiffres_affaires"
+                ),
                 headers=self._auth_headers,
                 params=self._query_params,
             )
@@ -117,7 +159,7 @@ class ApiEntreprise:
 
     @property
     def _base_url(self):
-        return urljoin(self._config.base_url, API_ENTREPRISE_VERSION)
+        return join_fragments(self._config.base_url, API_ENTREPRISE_VERSION)
 
     def _json_to_donnees_etab(self, json):
         schema = DonneesEtablissement.ma_schema
@@ -130,6 +172,12 @@ class ApiEntreprise:
 
         tva = schema.load(json["data"])
         return tva
+
+    def _json_to_chiffre_d_affaires(self, json):
+        schema = ChiffreDaffairesResponse.ma_schema_many
+
+        ca = schema.load(json["data"])
+        return ca
 
     def _empty_ratelimiter_if_429(self, response: requests.Response):
         if response.status_code == 429:

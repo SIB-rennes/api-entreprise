@@ -20,4 +20,6 @@ class _AddMarshmallowSchema(type):
 
         ma_schema_class = ma.class_schema(cls, base_schema=_BaseSchemaExcludingUnknown)
 
+        cls.ma_schema_class = ma_schema_class
         cls.ma_schema = ma_schema_class()
+        cls.ma_schema_many = ma_schema_class(many=True)
