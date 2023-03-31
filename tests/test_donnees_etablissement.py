@@ -1,4 +1,3 @@
-import vcr
 from .fixtures import *
 
 from api_entreprise import ApiError, LimitHitError, Http429Error, DonneesEtablissement
@@ -36,7 +35,7 @@ def test_ratelimithit(api_with_emptyratelimiter: ApiEntreprise):
         api_with_emptyratelimiter.donnees_etablissement(25351449100047)
 
 
-@vcr.use_cassette(f"{vcr_folder}/429-answer.yaml", record_mode="none")
+@vcr.use_cassette(f"{vcr_folder}/forges/429-answer.yaml", record_mode="none")
 def test_429_answer(api: ApiEntreprise):
     with pytest.raises(Http429Error) as e_1:
         api.donnees_etablissement(25351449100047)

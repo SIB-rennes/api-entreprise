@@ -11,33 +11,33 @@ interactions:
       User-Agent:
       - python-requests/2.28.2
     method: GET
-    uri: https://staging.entreprise.api.gouv.fr/v3/european_commission/unites_legales/821936291/numero_tva?context=test&object=test&recipient=26350579400028
+    uri: https://staging.entreprise.api.gouv.fr/v3/european_commission/unites_legales/409603032/numero_tva?context=test&object=test&recipient=26350579400028
   response:
     body:
-      string: '{"data":{"tva_number":"FR48672039971"},"links":{},"meta":{}}'
+      string: "{\"errors\":[{\"code\":\"28003\",\"title\":\"Entit\xE9 non trouv\xE9e\",\"detail\":\"L'identifiant
+        indiqu\xE9 n'existe pas, n'est pas connu ou ne comporte aucune information
+        pour cet appel.\",\"meta\":{\"provider\":\"Commission Europ\xE9enne\"}}]}"
     headers:
       Cache-Control:
-      - max-age=0, private, must-revalidate
+      - no-cache
       Connection:
       - keep-alive
       Content-Type:
       - application/vnd.api+json
       Date:
-      - Fri, 31 Mar 2023 13:52:24 GMT
-      ETag:
-      - W/"6282d6e1e856348eb251e5ac0d80862d"
+      - Fri, 31 Mar 2023 13:53:43 GMT
       RateLimit-Limit:
       - '250'
       RateLimit-Remaining:
-      - '245'
+      - '249'
       RateLimit-Reset:
-      - '1680270780'
+      - '1680270840'
       Referrer-Policy:
       - strict-origin-when-cross-origin
       Server:
       - nginx + Phusion Passenger(R) 6.0.17
       Status:
-      - 200 OK
+      - 404 Not Found
       Strict-Transport-Security:
       - max-age=63072000; includeSubDomains
       - max-age=63072000
@@ -54,16 +54,16 @@ interactions:
       X-Powered-By:
       - Phusion Passenger(R) 6.0.17
       X-Request-Id:
-      - 346c8dd8-8076-4ed1-b0dc-9a5e3a9b02c7
+      - cc7ce066-3e26-421d-a0f4-dc4e4f8a09bd
       X-Response-Cached:
       - 'false'
       X-Runtime:
-      - '0.117883'
+      - '0.168308'
       X-XSS-Protection:
       - 1; mode=block
       vary:
       - Accept, Origin
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
 version: 1

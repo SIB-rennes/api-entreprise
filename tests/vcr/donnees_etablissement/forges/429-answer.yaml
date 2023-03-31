@@ -1,0 +1,55 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.28.2
+    method: GET
+    uri: https://staging.entreprise.api.gouv.fr/v3/insee/sirene/etablissements/25351449100047?context=test&object=test&recipient=26350579400028
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Mar 2023 12:38:28 GMT
+      RateLimit-Limit:
+      - '250'
+      RateLimit-Remaining:
+      - '0'
+      RateLimit-Reset:
+      - '1679575140'
+      Retry-After:
+      - '32'
+      Server:
+      - nginx + Phusion Passenger(R) 6.0.17
+      Status:
+      - 429 Too Many Requests
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Powered-By:
+      - Phusion Passenger(R) 6.0.17
+      X-Request-Id:
+      - e9100a7d-b526-45ef-bde4-419337bc21ce
+      X-Runtime:
+      - '0.002894'
+      vary:
+      - Origin
+    status:
+      code: 429
+      message: Too Many Requests
+version: 1

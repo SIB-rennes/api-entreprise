@@ -1,5 +1,3 @@
-import vcr
-
 from .fixtures import *
 
 from api_entreprise import ApiEntreprise, CertificationRgeHolder

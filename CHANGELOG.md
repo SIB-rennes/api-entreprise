@@ -9,6 +9,11 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Construction URL dans la cli
 - Traitement lors des 404
+- Cacher le header Authorization lors de la construction de cassettes
+
+### Changed
+
+- Les cassettes dont les réponses sont forgées à la main sont dans leur propre dossier.
 
 ## [3.1.0]
 
