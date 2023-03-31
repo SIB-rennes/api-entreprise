@@ -171,6 +171,9 @@ class ApiEntreprise:
         return join_fragments(self._config.base_url, API_ENTREPRISE_VERSION)
 
     def _json_to_dataclass(self, cls, json, many=False):
+        if json is None:
+            return None
+
         if many:
             schema = cls.ma_schema_many
         else:

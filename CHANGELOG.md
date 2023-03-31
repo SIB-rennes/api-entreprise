@@ -8,6 +8,7 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixed
 
 - Construction URL dans la cli
+- Traitement lors des 404
 
 ## [3.1.0]
 
