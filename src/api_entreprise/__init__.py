@@ -7,7 +7,7 @@ JSON_RESOURCE_IDENTIFIER = "api_entreprise"
 API_ENTREPRISE_VERSION = "v3"
 
 from .api import ApiEntreprise, Config
-from .exceptions import ApiError, Http429Error, LimitHitError
+from .exceptions import ApiEntrepriseClientError, ApiError, Http429Error, LimitHitError
 
 from .models import ContextInfo
 

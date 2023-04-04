@@ -1,12 +1,12 @@
 import functools
 
-from requests import HTTPError, Response
+from requests import RequestException, HTTPError, Response
 from pyrate_limiter import BucketFullException, Limiter
 
 from . import logger
 from . import JSON_RESOURCE_IDENTIFIER
 
-from .exceptions import Http429Error, LimitHitError, ApiError
+from .exceptions import Http429Error, LimitHitError, ApiError, ApiEntrepriseClientError
 from .models.errors import ApiErrorResponse
 
 
@@ -14,22 +14,45 @@ def _self(*args):
     return args[0]
 
 
-def _handle_httperror(response: Response):
-    schema = ApiErrorResponse.ma_schema
-    api_error_response = schema.load(response.json())
-    raise ApiError(api_error_response)
+def _transform_to_api_error_or_none(e: HTTPError) -> ApiError | None:
+    try:
+        response: Response = e.response
+        schema = ApiErrorResponse.ma_schema
+        api_error_response = schema.load(response.json())
+        return ApiError(api_error_response)
+    except Exception as e:
+        logger.debug(f"L'API n'a pas renvoyé un message d'erreur au bon format")
+    return None
 
 
-def _handle_response_in_error(f):
-    """Décorateur qui gère une erreur API générique"""
+def _handle_request_error(f):
+    """Décorateur qui gère une exception lors de la requête"""
+
+    @functools.wraps(f)
+    def inner(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except RequestException as e:
+            raise ApiEntrepriseClientError(
+                "Une erreur non standard s'est passée lors de la requête vers l'API entreprise."
+            ) from e
+
+    return inner
+
+
+def _handle_response_in_httperror(f):
+    """Décorateur qui gère une erreur de l'API entreprise générique"""
 
     @functools.wraps(f)
     def inner(*args, **kwargs):
         try:
             return f(*args, **kwargs)
         except HTTPError as e:
-            response: Response = e.response
-            _handle_httperror(response)
+            api_error = _transform_to_api_error_or_none(e)
+            if api_error is not None:
+                raise api_error from e
+            else:
+                raise
 
     return inner
 
@@ -82,7 +105,7 @@ def _handle_bucketfull_ex(f):
         except BucketFullException as e:
             logger.debug(f"Ratelimiter plein.")
             remaining = max(e.meta_info["remaining_time"], 1)
-            raise LimitHitError(remaining)
+            raise LimitHitError(remaining) from e
 
     return inner
 
@@ -107,7 +130,8 @@ def raw_call_handler(f):
     """handler qui combine la gestion d'erreur pour un appel API entreprise"""
 
     @functools.wraps(f)
-    @_handle_response_in_error
+    @_handle_request_error
+    @_handle_response_in_httperror
     @_handle_httperr_404_returns_none
     @_handle_httperr_429_ex
     @_handle_bucketfull_ex

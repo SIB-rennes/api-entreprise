@@ -3,7 +3,21 @@
 Changelog basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.1.2]
+
+### Added
+
+- Ajout d'une exception de base nommée `ApiEntrepriseClientError`
+
+### Fixed
+
+- Gestion plus correcte des erreurs non documentées. (503 par exemple)
+
+### Changed
+
+- Timeout par défaut à 5 secondes pour les endpoint json de l'API entreprise
+
+## [3.1.1]
 
 ### Fixed
 

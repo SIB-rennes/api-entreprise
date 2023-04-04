@@ -149,6 +149,7 @@ class ApiEntreprise:
                 url,
                 headers=self._auth_headers,
                 params=self._query_params,
+                timeout=5,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
             )
             self._empty_ratelimiter_if_429(response)
 

@@ -3,12 +3,22 @@ from . import logger
 from .models.errors import ApiErrorResponse
 
 
-class ApiError(Exception):
+class ApiEntrepriseClientError(Exception):
+    """Exception de base pour le client API entreprise"""
+
+    pass
+
+
+class ApiError(ApiEntrepriseClientError):
+    """Erreur renvoyée par l'API entreprise.
+    Elle porte la structure ApiErrorResponse
+    """
+
     def __init__(self, api_error_response: ApiErrorResponse) -> None:
         self.errors = api_error_response.errors
 
 
-class LimitHitError(Exception):
+class LimitHitError(ApiEntrepriseClientError):
     """Exception qui se produit lorsque la limite d'appel de l'api entreprise est atteinte."""
 
     def __init__(self, delay: float, default_remaining=60) -> None:

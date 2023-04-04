@@ -2,7 +2,6 @@ import os
 import logging
 import argparse
 import json
-from urllib.parse import urljoin
 
 from pyrate_limiter import Limiter, RequestRate
 
@@ -28,10 +27,8 @@ def donnees_etablissement(api: ApiEntreprise, *args):
     logger.info(f"Données établissement: {args}")
     logger.debug(f"Siret: {siret}")
 
-    response = api._donnees_etablissement(siret)
-    json_answer = response.json()
-
-    print(json.dumps(json_answer))
+    response = api.raw_donnees_etablissement(siret)
+    print(json.dumps(response))
 
 
 def main():
