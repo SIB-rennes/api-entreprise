@@ -16,7 +16,7 @@ Une CLI est fournie avec la bibliothèque
 ### Installation
 
 ```bash
-python -m pipx install --index-url https://repository.csm.ovh/repository/pypi-group/simple api-entreprise
+python -m pipx install api-entreprise
 ```
 
 ### Utilisation
