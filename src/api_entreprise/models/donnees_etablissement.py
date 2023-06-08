@@ -16,9 +16,9 @@ class TrancheEffectifSalarie:
 ## Activite Principale
 @dataclass
 class ActivitePrincipale:
-    code: str
+    code: str | None
     libelle: str | None
-    nomenclature: str
+    nomenclature: str | None
 
 
 ## Unité légale
