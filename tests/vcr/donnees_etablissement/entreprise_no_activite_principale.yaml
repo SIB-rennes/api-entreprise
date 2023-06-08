@@ -1,0 +1,82 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://pro01.sib.fr:3128/v3/insee/sirene/etablissements/34140407700016?context=test&object=test&recipient=26350579400028
+  response:
+    body:
+      string: "{\"data\":{\"siret\":\"30613890001294\",\"siege_social\":true,\"etat_administratif\":\"A\",\"date_fermeture\":1634133818,\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
+        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
+        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"status_diffusion\":\"diffusible\",\"diffusable_commercialement\":true,\"enseigne\":\"Coiff
+        Land, CoiffureLand\",\"unite_legale\":{\"siren\":\"130025265\",\"rna\":\"W751004076\",\"siret_siege_social\":\"13002526500013\",\"type\":\"personne_morale\",\"personne_morale_attributs\":{\"raison_sociale\":\"DIRECTION
+        INTERMINISTERIELLE DU NUMERIQUE\",\"sigle\":\"DINUM\"},\"personne_physique_attributs\":{\"pseudonyme\":\"DJ
+        Falcon\",\"prenom_usuel\":\"Jean\",\"prenom_1\":\"Jean\",\"prenom_2\":\"Jacques\",\"prenom_3\":\"Pierre\",\"prenom_4\":\"Paul\",\"nom_usage\":\"Dupont\",\"nom_naissance\":\"Martin\",\"sexe\":\"M\"},\"categorie_entreprise\":\"GE\",\"status_diffusion\":\"diffusible\",\"diffusable_commercialement\":true,\"forme_juridique\":{\"code\":\"7120\",\"libelle\":\"Service
+        central d'un minist\xE8re\"},\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
+        publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
+        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"etat_administratif\":\"A\",\"economie_sociale_et_solidaire\":true,\"date_creation\":1634103818},\"adresse\":{\"numero_voie\":\"22\",\"indice_repetition_voie\":\"bis\",\"type_voie\":\"RUE\",\"libelle_voie\":\"DE
+        LA PAIX\",\"complement_adresse\":\"ZAE SAINT GUENAULT\",\"code_commune\":\"75112\",\"code_postal\":\"75016\",\"distribution_speciale\":\"dummy\",\"code_cedex\":\"75590\",\"libelle_cedex\":\"PARIS
+        CEDEX 12\",\"libelle_commune\":\"PARIS 12\",\"libelle_commune_etranger\":\"dummy\",\"code_pays_etranger\":\"99132\",\"libelle_pays_etranger\":\"ROYAUME-UNI\",\"status_diffusion\":\"diffusible\",\"acheminement_postal\":{\"l1\":\"DIRECTION
+        INTERMINISTERIELLE DU NUMERIQUE\",\"l2\":\"JEAN MARIE DURAND\",\"l3\":\"ZAE
+        SAINT GUENAULT\",\"l4\":\"51 BIS RUE DE LA PAIX\",\"l5\":\"CS 72809\",\"l6\":\"75256
+        PARIX CEDEX 12\",\"l7\":\"FRANCE\"}},\"date_creation\":1634103818},\"links\":{\"unite_legale\":\"https://entreprise.api.gouv.fr/api/v3/insee/unites_legales/130025265\"},\"meta\":{\"date_derniere_mise_a_jour\":1618396818,\"redirect_from_siret\":\"30613890000010\"}}"
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/vnd.api+json
+      Date:
+      - Thu, 08 Jun 2023 08:34:50 GMT
+      ETag:
+      - W/"5e97563ca8114e716527535d1fd55aa2"
+      RateLimit-Limit:
+      - '250'
+      RateLimit-Remaining:
+      - '249'
+      RateLimit-Reset:
+      - '1686213300'
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx + Phusion Passenger(R) 6.0.17
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Powered-By:
+      - Phusion Passenger(R) 6.0.17
+      X-Request-Id:
+      - 6d6dec7e-2d31-4319-8a08-160e16b05b58
+      X-Response-Cached:
+      - 'false'
+      X-Runtime:
+      - '2.901271'
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept, Origin
+    status:
+      code: 200
+      message: OK
+version: 1
