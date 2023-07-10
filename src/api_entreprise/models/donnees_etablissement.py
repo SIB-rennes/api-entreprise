@@ -44,12 +44,14 @@ class PersonnePhysiqueAttributs:
     prenom_4: str | None = None
     nom_usage: str | None = None
     nom_naissance: str | None = None
-    sexe: Sexe | None = None
+    _sexe: str | None = None
 
+    sexe: Sexe | None = field(init=False)
     denomination: str | None = field(init=False)
 
     def __post_init__(self):
         self.denomination = self._denomination()
+        self.sexe = self._sexe if self._sexe else None
 
     def _denomination(self, prefix="entrepreneur individuel", suffix=None):
         """Dénomination de l'entreprise dans le cas d'un entrepreneur individuel"""
