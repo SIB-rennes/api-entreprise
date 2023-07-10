@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from enum import Enum
 
 from ..utils.metaclasses import _AddMarshmallowSchema
 
@@ -28,6 +29,45 @@ class PersonneMoraleAttributs:
     sigle: str | None
 
 
+class Sexe(str, Enum):
+    M = "M"
+    F = "F"
+
+
+@dataclass
+class PersonnePhysiqueAttributs:
+    pseudonyme: str | None = None
+    prenom_usuel: str | None = None
+    prenom_1: str | None = None
+    prenom_2: str | None = None
+    prenom_3: str | None = None
+    prenom_4: str | None = None
+    nom_usage: str | None = None
+    nom_naissance: str | None = None
+    sexe: Sexe | None = None
+
+    denomination: str | None = field(init=False)
+
+    def __post_init__(self):
+        self.denomination = self._denomination()
+
+    def _denomination(self, prefix="entrepreneur individuel", suffix=None):
+        """Dénomination de l'entreprise dans le cas d'un entrepreneur individuel"""
+        nom = self.nom_usage.upper() if self.nom_usage is not None else None
+
+        # fmt:off
+        to_join = [ x for x in ( nom, self.prenom_usuel,) if x is not None ]
+        # fmt:on
+        if len(to_join) == 0:
+            return None
+
+        # fmt:off
+        to_join = [ x for x in ( prefix, *to_join, suffix,) if x is not None ]
+        # fmt:on
+
+        return " ".join(to_join)
+
+
 @dataclass
 class FormeJuridique:
     code: str
@@ -37,6 +77,7 @@ class FormeJuridique:
 @dataclass
 class UniteLegale:
     personne_morale_attributs: PersonneMoraleAttributs
+    personne_physique_attributs: PersonnePhysiqueAttributs
     forme_juridique: FormeJuridique
     activite_principale: ActivitePrincipale
     tranche_effectif_salarie: TrancheEffectifSalarie
