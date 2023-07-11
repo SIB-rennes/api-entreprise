@@ -56,6 +56,8 @@ class PersonnePhysiqueAttributs:
     def _denomination(self, prefix="entrepreneur individuel", suffix=None):
         """Dénomination de l'entreprise dans le cas d'un entrepreneur individuel"""
         nom = self.nom_usage.upper() if self.nom_usage is not None else None
+        if nom is None:
+            nom = self.nom_naissance.upper() if self.nom_naissance is not None else None
 
         # fmt:off
         to_join = [ x for x in ( nom, self.prenom_usuel,) if x is not None ]

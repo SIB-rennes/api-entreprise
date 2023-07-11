@@ -21,3 +21,12 @@ def test_personne_physique_denomination_nom_prenom():
         " toujours au nom de famille et au prénom, précédés ou suivis de la mention"
         ' "entrepreneur individuel" ou "EI".\' [...]'
     )
+
+
+def test_personne_physique_denomination_nom_prenom_nonreg1():
+    attrs = PersonnePhysiqueAttributs(nom_naissance="Duchesse", prenom_usuel="Anne")
+
+    denomination = attrs.denomination
+    assert (
+        denomination == "entrepreneur individuel DUCHESSE Anne"
+    ), "Pour le siret 53766664600022"
