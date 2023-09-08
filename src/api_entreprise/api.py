@@ -24,6 +24,7 @@ class ApiEntreprise:
     def __init__(self, conf: Config) -> None:
         self._config = conf
         self._ratelimiter = conf.rate_limiter
+        self._timeout_s = conf.timeout_s
 
     def donnees_etablissement(self, siret: str) -> DonneesEtablissement | None:
         """Retourne les données établissement pour un siret donné
@@ -149,7 +150,7 @@ class ApiEntreprise:
                 url,
                 headers=self._auth_headers,
                 params=self._query_params,
-                timeout=5,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
             )
             self._empty_ratelimiter_if_429(response)
 

@@ -3,7 +3,7 @@ import logging
 import argparse
 import json
 
-from pyrate_limiter import Limiter, RequestRate
+from pyrate_limiter import Limiter, Rate
 
 from api_entreprise.models.config import Config
 from api_entreprise.models.context_info import ContextInfo
@@ -12,6 +12,7 @@ TOKEN = os.environ.get("API_ENTREPRISE_TOKEN", "")
 CONTEXT = os.environ.get("API_ENTREPRISE_CONTEXT", "Client API Entreprise")
 RECIPIENT = os.environ.get("API_ENTREPRISE_RECIPIENT", "26350579400028")
 OBJECT = os.environ.get("API_ENTREPRISE_OBJECT", "Client API Entreprise")
+TIMEOUT = os.environ.get("API_ENTREPRISE_TIMEOUT", 5)
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("CLI API Entreprise")
@@ -69,6 +70,13 @@ def main():
         help="Token d'authentification à utiliser",
         default=TOKEN,
     )
+
+    parser.add_argument(
+        "--timeout",
+        dest="timeout",
+        help="Timeout pour la requête",
+        default=TIMEOUT,
+    )
     args = parser.parse_args()
 
     ctx = ContextInfo(args.context, args.recipient, args.object)
@@ -77,7 +85,8 @@ def main():
         base_url=args.base_url,
         token=args.token,
         default_context_info=ctx,
-        rate_limiter=Limiter(RequestRate(250, 60)),
+        rate_limiter=Limiter(Rate(250, 60)),
+        timeout_s=args.timeout,
     )
     api_entreprise = ApiEntreprise(conf)
 
