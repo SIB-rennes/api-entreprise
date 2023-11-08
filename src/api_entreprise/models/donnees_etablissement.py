@@ -91,6 +91,14 @@ class UniteLegale:
 ## Adresse
 @dataclass
 class AcheminementPostal:
+    """- l1 : Si l'établissement correspond à une personne morale : la dénomination sociale de la personne morale. Le cas contraire: cette variable est vide.
+    - l2 : Si l'établissement correspond à une personne physique : concaténation du nom et prénom
+    - l3 : Complément d'adresse comme décrit dans la clé complement_adresse
+    - l4 : Concaténation du numéro de voie, d'indice de répétition, du type de voie et du libellé de la voie
+    - l5 :  Distribution spéciale comme décrit dans la clé distribution_speciale
+    - l6 : Si le code cedex est existant : code cedex accompagné de son libellé ; sinon, si le pays est en France : code postal accompagné de son libellé, sinon : libellé de la commune de l'établissement situé à l'étranger
+    - l7 : Pays de l'établissement
+    """
     l1: str
     l2: str
     l3: str
@@ -103,6 +111,9 @@ class AcheminementPostal:
 @dataclass
 class Adresse:
     code_commune: str | None
+    code_postal: str | None
+    code_cedex: str | None
+    libelle_commune: str | None
     acheminement_postal: AcheminementPostal
 
 
