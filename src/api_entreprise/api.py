@@ -64,7 +64,7 @@ class ApiEntreprise:
             HealthCheckSatus
         """
         json = self.raw_healthcheck_fournisseur(suffix_url)
-        return self._json_to_dataclass(HealthcheckStatus, json)
+        return self._json_to_dataclass_default(HealthcheckStatus, json)
 
     def numero_tva_intercommunautaire(self, siren: str) -> NumeroTvaHolder | None:
         """Retourne le numéro de TVA intercommunautaire pour un siren donné
@@ -117,7 +117,7 @@ class ApiEntreprise:
 
     def raw_healthcheck_fournisseur(self, suffix_url) -> dict | None:
         f = lambda: self._healthcheck_fournisseur(suffix_url)
-        return self._raw_response(f)
+        return self._raw_health_response(f)
 
     def raw_numero_tva_intercommunautaire(self, siren: str | int) -> dict | None:
         f = lambda: self._numero_tva_intercommunautaire(siren)
@@ -142,9 +142,8 @@ class ApiEntreprise:
         json = response.json()
         return json
 
-    def _raw_response(self, f) -> dict | None:
+    def _raw_health_response(self, f) -> dict | None:
         response: requests.Response = f()
-        response.raise_for_status()
         json = response.json()
         return json
 
@@ -240,6 +239,18 @@ class ApiEntreprise:
             schema = cls.ma_schema
 
         dc = schema.load(json["data"])
+        return dc
+
+    def _json_to_dataclass_default(self, cls, json, many=False):
+        if json is None:
+            return None
+
+        if many:
+            schema = cls.ma_schema_many
+        else:
+            schema = cls.ma_schema
+
+        dc = schema.load(json)
         return dc
 
     def _empty_ratelimiter_if_429(self, response: requests.Response):

@@ -1,0 +1,59 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://staging.entreprise.api.gouv.fr/ping/insee/sirene
+  response:
+    body:
+      string: '{"status":"unknown","last_update":"2023-11-08T14:17:01Z", "last_ok_status": "2023-11-03T12:24:07.185+01:00"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 08 Nov 2023 14:17:01 GMT
+      ETag:
+      - W/"d093f8f3b28a381ee28c300b92bc1669"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - a8701550-38e9-461b-bbde-48d9f97e4c85
+      X-Runtime:
+      - '0.007424'
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept, Origin
+    status:
+      code: 200
+      message: UNKNOWN
+version: 1

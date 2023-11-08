@@ -1,0 +1,59 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://staging.entreprise.api.gouv.fr/ping/insee/sirene
+  response:
+    body:
+      string: '{"status":"bad_gateway","last_update":"2023-11-08T14:17:19Z", "last_ok_status": "2023-11-03T12:24:07.185+01:00"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 08 Nov 2023 14:17:19 GMT
+      ETag:
+      - W/"70ad41ee9cffaba6aa7e70d8ed6f456c"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 0893c0ba-3bc1-4ae4-a028-6b83d191ce6e
+      X-Runtime:
+      - '0.009375'
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept, Origin
+    status:
+      code: 502
+      message: BAD_GATEWAY
+version: 1
