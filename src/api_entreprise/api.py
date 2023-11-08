@@ -40,6 +40,18 @@ class ApiEntreprise:
         return self._json_to_dataclass(DonneesEtablissement, json)
 
 
+    def donnees_etablissement_diffusibles(self, siret: str) -> DonneesEtablissement | None:
+        """Retourne les données établissement diffusibles pour un siret donné
+
+        Raises:
+            Exception: LimitHitError si le ratelimiter de l'API est plein
+
+        Returns:
+            DonneesEtablissement | None: None si établissement non trouvé
+        """
+        json = self.raw_donnees_etablissement_diffusibles(siret)
+        return self._json_to_dataclass(DonneesEtablissement, json)
+
     def healthcheck_fournisseur(self, suffix_url: str) -> HealthcheckStatus:
         """Retourne le statut d'un fournisseur
         En suivant la documentation suivante : https://entreprise.api.gouv.fr/developpeurs#surveillance-etat-fournisseurs \n
@@ -99,6 +111,10 @@ class ApiEntreprise:
         f = lambda: self._donnees_etablissement(siret)
         return self._raw(f)
 
+    def raw_donnees_etablissement_diffusibles(self, siret: str) -> dict | None:
+        f = lambda: self._donnees_etablissement_diffusibles(siret)
+        return self._raw(f)
+
     def raw_healthcheck_fournisseur(self, suffix_url) -> dict | None:
         f = lambda: self._healthcheck_fournisseur(suffix_url)
         return self._raw_response(f)
@@ -134,6 +150,10 @@ class ApiEntreprise:
 
     def _donnees_etablissement(self, siret) -> requests.Response:
         url = join_fragments(self._base_url, f"insee/sirene/etablissements/{siret}")
+        return self._perform_get(url)
+
+    def _donnees_etablissement_diffusibles(self, siret) -> requests.Response:
+        url = join_fragments(self._base_url, f"insee/sirene/etablissements/diffusibles/{siret}")
         return self._perform_get(url)
 
     def _healthcheck_fournisseur(self, suffix_url: str) -> requests.Response:
