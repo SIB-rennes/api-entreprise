@@ -63,7 +63,7 @@ class ApiEntreprise:
         Returns:
             HealthCheckSatus
         """
-        json = self._raw_response(suffix_url)
+        json = self.raw_healthcheck_fournisseur(suffix_url)
         return self._json_to_dataclass(HealthcheckStatus, json)
 
     def numero_tva_intercommunautaire(self, siren: str) -> NumeroTvaHolder | None:
