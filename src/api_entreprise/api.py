@@ -7,6 +7,7 @@ from api_entreprise.utils.url import join_fragments
 from . import logger
 from .models.config import Config
 from .models.donnees_etablissement import DonneesEtablissement
+from .models.healthcheck_status import HealthcheckStatus
 from .models.numero_tva import NumeroTvaHolder
 from .models.chiffre_daffaires import ChiffreDaffairesHolder
 from .models.certification_rge import CertificationRgeHolder
@@ -37,6 +38,21 @@ class ApiEntreprise:
         """
         json = self.raw_donnees_etablissement(siret)
         return self._json_to_dataclass(DonneesEtablissement, json)
+
+
+    def healthcheck_fournisseur(self, suffix_url: str) -> HealthcheckStatus:
+        """Retourne le statut d'un fournisseur
+        En suivant la documentation suivante : https://entreprise.api.gouv.fr/developpeurs#surveillance-etat-fournisseurs \n
+        Liste disponible : https://entreprise.api.gouv.fr/pings
+
+        Parameters:
+            suffix_url (str): url suffixe du fournisseur après "ping/" \n\t exemple : 'insee/sirene'
+
+        Returns:
+            HealthCheckSatus
+        """
+        json = self._raw_response(suffix_url)
+        return self._json_to_dataclass(HealthcheckStatus, json)
 
     def numero_tva_intercommunautaire(self, siren: str) -> NumeroTvaHolder | None:
         """Retourne le numéro de TVA intercommunautaire pour un siren donné
@@ -83,6 +99,10 @@ class ApiEntreprise:
         f = lambda: self._donnees_etablissement(siret)
         return self._raw(f)
 
+    def raw_healthcheck_fournisseur(self, suffix_url) -> dict | None:
+        f = lambda: self._healthcheck_fournisseur(suffix_url)
+        return self._raw_response(f)
+
     def raw_numero_tva_intercommunautaire(self, siren: str | int) -> dict | None:
         f = lambda: self._numero_tva_intercommunautaire(siren)
         return self._raw(f)
@@ -106,8 +126,18 @@ class ApiEntreprise:
         json = response.json()
         return json
 
+    def _raw_response(self, f) -> dict | None:
+        response: requests.Response = f()
+        response.raise_for_status()
+        json = response.json()
+        return json
+
     def _donnees_etablissement(self, siret) -> requests.Response:
         url = join_fragments(self._base_url, f"insee/sirene/etablissements/{siret}")
+        return self._perform_get(url)
+
+    def _healthcheck_fournisseur(self, suffix_url: str) -> requests.Response:
+        url = join_fragments(self._base_url, f"ping/{suffix_url}")
         return self._perform_get(url)
 
     def _numero_tva_intercommunautaire(self, siren: str | int) -> requests.Response:
