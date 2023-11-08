@@ -157,7 +157,7 @@ class ApiEntreprise:
         return self._perform_get(url)
 
     def _healthcheck_fournisseur(self, suffix_url: str) -> requests.Response:
-        url = join_fragments(self._base_url, f"ping/{suffix_url}")
+        url = join_fragments(self._config.base_url, f"ping/{suffix_url}")
         return self._perform_default_get(url)
 
     def _numero_tva_intercommunautaire(self, siren: str | int) -> requests.Response:
