@@ -195,12 +195,20 @@ class ApiEntreprise:
             _ratelimiterlock as _,
             self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
         ):
-            response = requests.get(
-                url,
-                headers=self._auth_headers,
-                params=self._query_params,
-                timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-            )
+            if self._manage_proxy() is not None:
+                response = requests.get(
+                    url,
+                    timeout=self._timeout_s,
+                    # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                    proxies=self._manage_proxy()
+                )
+            else:
+                response = requests.get(
+                    url,
+                    headers=self._auth_headers,
+                    params=self._query_params,
+                    timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                )
             self._empty_ratelimiter_if_429(response)
 
             return response
@@ -231,7 +239,7 @@ class ApiEntreprise:
                 timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
                 proxies=self._manage_proxy()
             )
-        else :
+        else:
             response = requests.get(
                 url,
                 timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
