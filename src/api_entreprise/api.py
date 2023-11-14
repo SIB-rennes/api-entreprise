@@ -39,8 +39,9 @@ class ApiEntreprise:
         json = self.raw_donnees_etablissement(siret)
         return self._json_to_dataclass(DonneesEtablissement, json)
 
-
-    def donnees_etablissement_diffusibles(self, siret: str) -> DonneesEtablissement | None:
+    def donnees_etablissement_diffusibles(
+        self, siret: str
+    ) -> DonneesEtablissement | None:
         """Retourne les données établissement diffusibles pour un siret donné
 
         Raises:
@@ -152,7 +153,9 @@ class ApiEntreprise:
         return self._perform_get(url)
 
     def _donnees_etablissement_diffusibles(self, siret) -> requests.Response:
-        url = join_fragments(self._base_url, f"insee/sirene/etablissements/diffusibles/{siret}")
+        url = join_fragments(
+            self._base_url, f"insee/sirene/etablissements/diffusibles/{siret}"
+        )
         return self._perform_get(url)
 
     def _healthcheck_fournisseur(self, suffix_url: str) -> requests.Response:
@@ -201,7 +204,7 @@ class ApiEntreprise:
                     timeout=self._timeout_s,
                     params=self._query_params,
                     # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-                    proxies=self._manage_proxy()
+                    proxies=self._manage_proxy(),
                 )
             else:
                 response = requests.get(
@@ -214,31 +217,34 @@ class ApiEntreprise:
 
             return response
 
-
     def _manage_proxy(self):
-        proxies=None
-        if self._config.http_proxy_host is not None and self._config.https_proxy_host is not None:
+        proxies = None
+        if (
+            self._config.http_proxy_host is not None
+            and self._config.https_proxy_host is not None
+        ):
             proxies = {
                 "http": f"{self._config.http_proxy_host}",
-                "https": f"{self._config.https_proxy_host}"
+                "https": f"{self._config.https_proxy_host}",
             }
-        elif self._config.http_proxy_host is not None and self._config.https_proxy_host is None:
-            proxies = {
-                "http": f"{self._config.http_proxy_host}"
-            }
-        elif self._config.https_proxy_host is not None and self._config.http_proxy_host is None:
-            proxies = {
-                "https": f"{self._config.https_proxy_host}"
-            }
+        elif (
+            self._config.http_proxy_host is not None
+            and self._config.https_proxy_host is None
+        ):
+            proxies = {"http": f"{self._config.http_proxy_host}"}
+        elif (
+            self._config.https_proxy_host is not None
+            and self._config.http_proxy_host is None
+        ):
+            proxies = {"https": f"{self._config.https_proxy_host}"}
         return proxies
-
 
     def _perform_default_get(self, url) -> requests.Response:
         if self._manage_proxy() is not None:
             response = requests.get(
                 url,
                 timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-                proxies=self._manage_proxy()
+                proxies=self._manage_proxy(),
             )
         else:
             response = requests.get(
