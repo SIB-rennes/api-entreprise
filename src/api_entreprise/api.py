@@ -199,6 +199,7 @@ class ApiEntreprise:
                 response = requests.get(
                     url,
                     timeout=self._timeout_s,
+                    params=self._query_params,
                     # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
                     proxies=self._manage_proxy()
                 )
