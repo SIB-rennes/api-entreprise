@@ -4,7 +4,7 @@ from pyrate_limiter import Limiter, RequestRate
 
 from api_entreprise import ApiEntreprise, Config, ContextInfo
 
-vcr_folder = "tests/vcr/donnees_etablissement/"
+vcr_folder = "vcr/donnees_etablissement/"
 
 vcr = VCR(filter_headers=["authorization"])
 
