@@ -39,8 +39,9 @@ class ApiEntreprise:
         json = self.raw_donnees_etablissement(siret)
         return self._json_to_dataclass(DonneesEtablissement, json)
 
-
-    def donnees_etablissement_diffusibles(self, siret: str) -> DonneesEtablissement | None:
+    def donnees_etablissement_diffusibles(
+        self, siret: str
+    ) -> DonneesEtablissement | None:
         """Retourne les données établissement diffusibles pour un siret donné
 
         Raises:
@@ -152,7 +153,9 @@ class ApiEntreprise:
         return self._perform_get(url)
 
     def _donnees_etablissement_diffusibles(self, siret) -> requests.Response:
-        url = join_fragments(self._base_url, f"insee/sirene/etablissements/diffusibles/{siret}")
+        url = join_fragments(
+            self._base_url, f"insee/sirene/etablissements/diffusibles/{siret}"
+        )
         return self._perform_get(url)
 
     def _healthcheck_fournisseur(self, suffix_url: str) -> requests.Response:
@@ -195,23 +198,63 @@ class ApiEntreprise:
             _ratelimiterlock as _,
             self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
         ):
-            response = requests.get(
-                url,
-                headers=self._auth_headers,
-                params=self._query_params,
-                timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-            )
+            proxies = self._manage_proxy()
+            if proxies is not None:
+                response = requests.get(
+                    url,
+                    timeout=self._timeout_s,
+                    params=self._query_params,
+                    # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                    proxies=proxies,
+                )
+            else:
+                response = requests.get(
+                    url,
+                    headers=self._auth_headers,
+                    params=self._query_params,
+                    timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                )
             self._empty_ratelimiter_if_429(response)
 
             return response
 
+    def _manage_proxy(self) -> dict | None:
+        proxies = None
+        if (
+            self._config.http_proxy_host is not None
+            and self._config.https_proxy_host is not None
+        ):
+            proxies = {
+                "http": f"{self._config.http_proxy_host}",
+                "https": f"{self._config.https_proxy_host}",
+            }
+        elif (
+            self._config.http_proxy_host is not None
+            and self._config.https_proxy_host is None
+        ):
+            proxies = {"http": f"{self._config.http_proxy_host}"}
+        elif (
+            self._config.https_proxy_host is not None
+            and self._config.http_proxy_host is None
+        ):
+            proxies = {"https": f"{self._config.https_proxy_host}"}
+        return proxies
+
     def _perform_default_get(self, url) -> requests.Response:
+        proxies = self._manage_proxy()
+        if proxies is not None:
+            response = requests.get(
+                url,
+                timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
+                proxies=proxies,
+            )
+        else:
             response = requests.get(
                 url,
                 timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
             )
 
-            return response
+        return response
 
     @property
     def _auth_headers(self):
