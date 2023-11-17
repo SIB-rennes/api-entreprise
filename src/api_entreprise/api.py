@@ -198,13 +198,14 @@ class ApiEntreprise:
             _ratelimiterlock as _,
             self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
         ):
-            if self._manage_proxy() is not None:
+            proxies = self._manage_proxy()
+            if proxies is not None:
                 response = requests.get(
                     url,
                     timeout=self._timeout_s,
                     params=self._query_params,
                     # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-                    proxies=self._manage_proxy(),
+                    proxies=proxies,
                 )
             else:
                 response = requests.get(
@@ -240,11 +241,12 @@ class ApiEntreprise:
         return proxies
 
     def _perform_default_get(self, url) -> requests.Response:
-        if self._manage_proxy() is not None:
+        proxies = self._manage_proxy()
+        if proxies is not None:
             response = requests.get(
                 url,
                 timeout=self._timeout_s,  # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
-                proxies=self._manage_proxy(),
+                proxies=proxies,
             )
         else:
             response = requests.get(
