@@ -24,7 +24,7 @@ dev = [
     "build", "black", "mypy", "twine", "pre-commit",
     "types-requests",
 ]
-test = ["pytest", "vcrpy>=4.2"]
+test = ["pytest", "vcrpy>=4.2","pytest-vcr"]
 
 [tool.setuptools]
 include-package-data = true
