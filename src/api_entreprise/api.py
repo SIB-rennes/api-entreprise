@@ -217,7 +217,7 @@ class ApiEntreprise:
 
             return response
 
-    def _manage_proxy(self):
+    def _manage_proxy(self) -> dict | None:
         proxies = None
         if (
             self._config.http_proxy_host is not None
