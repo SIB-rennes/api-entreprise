@@ -202,6 +202,7 @@ class ApiEntreprise:
             if proxies is not None:
                 response = requests.get(
                     url,
+                    headers=self._auth_headers,
                     timeout=self._timeout_s,
                     params=self._query_params,
                     # pour les données structurées JSON, il est recommandé de mettre un timeout de 5 secondes par la doc API entreprise
