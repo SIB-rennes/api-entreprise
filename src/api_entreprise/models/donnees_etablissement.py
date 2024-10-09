@@ -144,7 +144,7 @@ class DonneesEtablissement(metaclass=_AddMarshmallowSchema):
         components = (
             acheminement_postal.l4,
             acheminement_postal.l5,
-            acheminement_postal.l6,
+            acheminement_postal.l6 if acheminement_postal.l6 is not None else "#",
             acheminement_postal.l7,
         )
         self.adresse_postale_legere = " ".join(components)
