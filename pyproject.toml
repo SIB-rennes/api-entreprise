@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "api-entreprise"
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "requests~=2.28",
     "pyrate-limiter~=2.10",

@@ -4,7 +4,7 @@ stages:
 
 unit-test:
   stage: 🧪 test
-  image: python:3.10
+  image: python:3.11
   before_script:
     - python --version
     - pip install -r requirements.txt
@@ -19,7 +19,7 @@ deploy:
   stage: 🐣 deploy
   only:
     - tags
-  image: python:3.10
+  image: python:3.11
   before_script:
     - python --version
     - pip install -r requirements.txt
