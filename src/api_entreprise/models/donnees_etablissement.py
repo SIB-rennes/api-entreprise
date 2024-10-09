@@ -96,7 +96,7 @@ class AcheminementPostal:
     - l3 : Complément d'adresse comme décrit dans la clé complement_adresse
     - l4 : Concaténation du numéro de voie, d'indice de répétition, du type de voie et du libellé de la voie
     - l5 :  Distribution spéciale comme décrit dans la clé distribution_speciale
-    - l6 : Si le code cedex est existant : code cedex accompagné de son libellé ; sinon, si le pays est en France : code postal accompagné de son libellé, sinon : libellé de la commune de l'établissement situé à l'étranger
+    - l6 : Si le code cedex est existant : code cedex accompagné de son libellé ; sinon, si le pays est en France : code postal accompagné de son libellé, sinon : libellé de la commune de l'établissement situé à l'étranger. XXX: vu dans une réponse d'API, l6 peut être null
     - l7 : Pays de l'établissement
     """
     l1: str
@@ -104,7 +104,7 @@ class AcheminementPostal:
     l3: str
     l4: str
     l5: str
-    l6: str
+    l6: str | None
     l7: str
 
 
