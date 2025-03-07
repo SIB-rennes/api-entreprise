@@ -15,6 +15,9 @@ dependencies = [
     "marshmallow-dataclass~=8.5"
 ]
 
+[project.urls]
+Repository = "https://github.com/SIB-rennes/api-entreprise"
+
 [project.scripts]
 api-entreprise = "api_entreprise.cli:main"
 
