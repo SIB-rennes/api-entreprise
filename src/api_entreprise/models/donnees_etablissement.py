@@ -128,7 +128,7 @@ class DonneesEtablissement(metaclass=_AddMarshmallowSchema):
 
     unite_legale: UniteLegale
 
-    date_creation: int
+    date_creation: int | None
     """Date de création sous format de timestamp"""
 
     adresse: Adresse
