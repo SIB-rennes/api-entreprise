@@ -22,12 +22,12 @@ interactions:
         Falcon\",\"prenom_usuel\":\"Jean\",\"prenom_1\":\"Jean\",\"prenom_2\":\"Jacques\",\"prenom_3\":\"Pierre\",\"prenom_4\":\"Paul\",\"nom_usage\":\"Dupont\",\"nom_naissance\":\"Dubois\",\"sexe\":\"M\"},\"categorie_entreprise\":\"GE\",\"diffusable_commercialement\":true,\"forme_juridique\":{\"code\":\"7120\",\"libelle\":\"Service
         central d'un minist\xE8re\"},\"activite_principale\":{\"code\":\"8411Z\",\"libelle\":\"Administration
         publique g\xE9n\xE9rale\",\"nomenclature\":\"NAFRev2\"},\"tranche_effectif_salarie\":{\"code\":\"51\",\"intitule\":\"2
-        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"etat_administratif\":\"A\",\"economie_sociale_et_solidaire\":true,\"date_creation\":null},\"adresse\":{\"numero_voie\":\"22\",\"indice_repetition_voie\":\"dummy\",\"type_voie\":\"RUE\",\"libelle_voie\":\"DE
+        000 \xE0 4 999 salari\xE9s\",\"date_reference\":\"2016\",\"de\":2000,\"a\":4999},\"etat_administratif\":\"A\",\"economie_sociale_et_solidaire\":true,\"date_creation\":1666},\"adresse\":{\"numero_voie\":\"22\",\"indice_repetition_voie\":\"dummy\",\"type_voie\":\"RUE\",\"libelle_voie\":\"DE
         LA PAIX\",\"complement_adresse\":\"ZAE SAINT GUENAULT\",\"code_commune\":\"75112\",\"code_postal\":\"75016\",\"distribution_speciale\":\"dummy\",\"code_cedex\":\"75590\",\"libelle_cedex\":\"PARIS
         CEDEX 12\",\"libelle_commune\":\"PARIS 12\",\"libelle_commune_etranger\":\"dummy\",\"code_pays_etranger\":\"99132\",\"libelle_pays_etranger\":\"ROYAUME-UNI\",\"acheminement_postal\":{\"l1\":\"DIRECTION
         INTERMINISTERIELLE DU NUMERIQUE\",\"l2\":\"JEAN MARIE DURAND\",\"l3\":\"ZAE
         SAINT GUENAULT\",\"l4\":\"51 BIS RUE DE LA PAIX\",\"l5\":\"CS 72809\",\"l6\":\"75256
-        PARIX CEDEX 12\",\"l7\":\"FRANCE\"}},\"date_creation\":1634103818},\"links\":{\"unite_legale\":\"https://entreprise.api.gouv.fr/api/v3/insee/unites_legales/130025265\"},\"meta\":{\"date_derniere_mise_a_jour\":1618396818,\"redirect_from_siret\":\"30613890000010\"}}"
+        PARIX CEDEX 12\",\"l7\":\"FRANCE\"}},\"date_creation\":null},\"links\":{\"unite_legale\":\"https://entreprise.api.gouv.fr/api/v3/insee/unites_legales/130025265\"},\"meta\":{\"date_derniere_mise_a_jour\":1618396818,\"redirect_from_siret\":\"30613890000010\"}}"
     headers:
       Cache-Control:
       - max-age=0, private, must-revalidate
