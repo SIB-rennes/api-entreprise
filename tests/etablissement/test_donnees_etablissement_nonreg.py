@@ -29,3 +29,9 @@ def test_donnees_etablissement(api: ApiEntreprise):
     etablissement = api.donnees_etablissement(25351449100047)
     assert etablissement is not None
     assert isinstance(etablissement, DonneesEtablissement)
+
+@vcr.use_cassette(f"{vcr_folder}/no_date_creation.yml")
+def test_siret_sans_date_creation(api: ApiEntreprise):
+    etablissement = api.donnees_etablissement(25351449100047)
+
+    assert etablissement is not None
