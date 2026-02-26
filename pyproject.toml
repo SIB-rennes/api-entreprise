@@ -9,8 +9,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "requests~=2.28",
-    "pyrate-limiter~=2.10",
-    "redis~=4.3",
     "marshmallow~=3.19",
     "marshmallow-dataclass~=8.5"
 ]
@@ -23,6 +21,10 @@ api-entreprise = "api_entreprise.cli:main"
 
 
 [project.optional-dependencies]
+ratelimit = [
+    "pyrate-limiter~=2.10",
+    "redis~=4.3",
+]
 dev = [
     "build", "black", "mypy", "twine", "pre-commit",
     "types-requests",

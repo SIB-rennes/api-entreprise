@@ -1,6 +1,7 @@
 import time
 import requests
 import threading
+from contextlib import nullcontext
 from api_entreprise.models.certification_qualibat import CertificationQualibat
 from api_entreprise.utils.url import join_fragments
 
@@ -16,7 +17,12 @@ from . import API_ENTREPRISE_VERSION
 
 from .handlers import raw_call_handler
 
-from pyrate_limiter import BucketFullException
+try:
+    from pyrate_limiter import BucketFullException
+    logger.info("pyrate-limiter est installé, le rate limiting est activé.")
+except ImportError:
+    logger.warning("pyrate-limiter n'est pas installé, le rate limiting est désactivé.")
+    BucketFullException = None
 
 _ratelimiterlock = threading.Lock()
 
@@ -191,10 +197,14 @@ class ApiEntreprise:
         # On utilise un lock avec le ratelimiter
         # car ce dernier se comporte mal en situation
         # d'un grand nombre de tâches en //
-        with (
-            _ratelimiterlock as _,
-            self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER) as _,
-        ):
+        if self._ratelimiter is not None:
+            ctx = _ratelimiterlock
+            rl_ctx = self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER)
+        else:
+            ctx = nullcontext()
+            rl_ctx = nullcontext()
+
+        with ctx, rl_ctx:
             response = requests.get(
                 url,
                 headers=self._auth_headers,
@@ -254,10 +264,13 @@ class ApiEntreprise:
         return dc
 
     def _empty_ratelimiter_if_429(self, response: requests.Response):
-        if response.status_code == 429:
+        if response.status_code == 429 and self._ratelimiter is not None:
             self._empty_ratelimiter()
 
     def _empty_ratelimiter(self):
+        if self._ratelimiter is None:
+            return
+
         start = time.perf_counter()
 
         logger.debug(
@@ -269,7 +282,7 @@ class ApiEntreprise:
             try:
                 with self._ratelimiter.ratelimit(JSON_RESOURCE_IDENTIFIER, delay=False):
                     pass
-            except BucketFullException as e:
+            except BucketFullException as _:
                 break
 
         elapsed = time.perf_counter() - start

@@ -1,7 +1,12 @@
 import functools
 
 from requests import RequestException, HTTPError, Response
-from pyrate_limiter import BucketFullException, Limiter
+
+try:
+    from pyrate_limiter import BucketFullException, Limiter
+except ImportError:
+    BucketFullException = None
+    Limiter = None
 
 from . import logger
 from . import JSON_RESOURCE_IDENTIFIER
@@ -58,8 +63,12 @@ def _handle_response_in_httperror(f):
 
 
 def _handle_response_429(response: Response, api_entreprise):
-    ratelimiter: Limiter = api_entreprise._ratelimiter
-    volume = ratelimiter.get_current_volume(JSON_RESOURCE_IDENTIFIER)
+    ratelimiter = api_entreprise._ratelimiter
+
+    volume_info = ""
+    if ratelimiter is not None and Limiter is not None:
+        volume = ratelimiter.get_current_volume(JSON_RESOURCE_IDENTIFIER)
+        volume_info = f" Quant à lui, notre ratelimiter client a un volume de {volume}"
 
     headers = response.headers
     limit = headers.get("RateLimit-Limit")
@@ -70,9 +79,8 @@ def _handle_response_429(response: Response, api_entreprise):
     logger.warning(
         "[API ENTREPRISE]"
         f"Ratelimiter de l'API entreprise déclenché. "
-        "Cela ne devrait pas se produire (ou peu)! "
-        f"{remaining}/{limit} - reset: {reset}. retry after: {retry_after}. "
-        f"Quant à lui, notre ratelimiter a un volume de {volume}"
+        f"{remaining}/{limit} - reset: {reset}. retry after: {retry_after}."
+        f"{volume_info}"
     )
 
     raise Http429Error(retry_after)
@@ -98,12 +106,16 @@ def _handle_httperr_429_ex(f):
 def _handle_bucketfull_ex(f):
     """Décorateur qui gère l'erreur BucketFullException renvoyé par le ratelimite de pyratelimiter"""
 
+    if BucketFullException is None:
+        # pyrate-limiter n'est pas installé, pas besoin de gérer BucketFullException
+        return f
+
     @functools.wraps(f)
     def inner(*args, **kwargs):
         try:
             return f(*args, **kwargs)
         except BucketFullException as e:
-            logger.debug(f"Ratelimiter plein.")
+            logger.debug("Ratelimiter plein.")
             remaining = max(e.meta_info["remaining_time"], 1)
             raise LimitHitError(remaining) from e
 

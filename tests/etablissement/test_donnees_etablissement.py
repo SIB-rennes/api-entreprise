@@ -1,6 +1,6 @@
-from ..fixtures import *
+from ..fixtures import *  # noqa: F403
 
-from api_entreprise import ApiError, LimitHitError, Http429Error, DonneesEtablissement
+from api_entreprise import ApiError, LimitHitError, Http429Error
 
 from ..fixtures import vcr_folder
 
@@ -21,11 +21,17 @@ def test_ratelimithit(api_with_emptyratelimiter: ApiEntreprise):
     with pytest.raises(LimitHitError) as e:
         api_with_emptyratelimiter.donnees_etablissement(25351449100047)
 
+@vcr.use_cassette(f"{vcr_folder}/forges/429-answer.yaml", record_mode="none")
+def test_429_answer_without_ratelimiter(api: ApiEntreprise):
+    with pytest.raises(Http429Error) as e:
+        api.donnees_etablissement(25351449100047)
+
+    assert isinstance(e.value, Http429Error)
 
 @vcr.use_cassette(f"{vcr_folder}/forges/429-answer.yaml", record_mode="none")
-def test_429_answer(api: ApiEntreprise):
+def test_429_answer_with_ratelimiter(api_with_ratelimiter: ApiEntreprise):
     with pytest.raises(Http429Error) as e_1:
-        api.donnees_etablissement(25351449100047)
+        api_with_ratelimiter.donnees_etablissement(25351449100047)
 
     #
     # On veut vider le ratelimiter côté client
@@ -35,7 +41,7 @@ def test_429_answer(api: ApiEntreprise):
     # Cet appel ne devrait pas donner lieu à une requête
     #
     with pytest.raises(LimitHitError) as e_2:
-        api.donnees_etablissement(25351449100047)
+        api_with_ratelimiter.donnees_etablissement(25351449100047)
 
     assert isinstance(e_1.value, Http429Error)
 

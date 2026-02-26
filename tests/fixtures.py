@@ -1,12 +1,22 @@
 import pytest
 from vcr import VCR
-from pyrate_limiter import Limiter, RequestRate
+
+try:
+    from pyrate_limiter import Limiter, RequestRate
+    HAS_RATELIMITER = True
+except ImportError:
+    HAS_RATELIMITER = False
 
 from api_entreprise import ApiEntreprise, Config, ContextInfo
 
 vcr_folder = "tests/vcr/donnees_etablissement/"
 
 vcr = VCR(filter_headers=["authorization"])
+
+requires_ratelimiter = pytest.mark.skipif(
+    not HAS_RATELIMITER,
+    reason="pyrate-limiter n'est pas installé (extra 'ratelimit')"
+)
 
 
 @pytest.fixture
@@ -23,20 +33,26 @@ def staging_url():
 
 @pytest.fixture
 def ratelimiter():
+    if not HAS_RATELIMITER:
+        pytest.skip("pyrate-limiter n'est pas installé (extra 'ratelimit')")
     return Limiter(RequestRate(10, 60))
 
 
 @pytest.fixture
 def empty_ratelimiter():
+    if not HAS_RATELIMITER:
+        pytest.skip("pyrate-limiter n'est pas installé (extra 'ratelimit')")
     return Limiter(RequestRate(0, 60))
 
 
 @pytest.fixture
 def too_large_ratelimiter():
+    if not HAS_RATELIMITER:
+        pytest.skip("pyrate-limiter n'est pas installé (extra 'ratelimit')")
     return Limiter(RequestRate(10000, 60))
 
 
-def make_api(url, token, ratelimiter):
+def make_api(url, token, ratelimiter=None):
     context = ContextInfo("test", "26350579400028", "test")
     config = Config(
         base_url=url,
@@ -49,8 +65,21 @@ def make_api(url, token, ratelimiter):
 
 
 @pytest.fixture
-def api(staging_url, staging_token, ratelimiter):
+def api(staging_url, staging_token):
+    """API sans rate limiter — fonctionne sans l'extra 'ratelimit'"""
+    return make_api(staging_url, staging_token)
+
+
+@pytest.fixture
+def api_with_ratelimiter(staging_url, staging_token, ratelimiter):
+    """API avec rate limiter — nécessite l'extra 'ratelimit'"""
     return make_api(staging_url, staging_token, ratelimiter)
+
+
+@pytest.fixture
+def api_without_ratelimiter(staging_url, staging_token):
+    """API sans rate limiter — fonctionne sans l'extra 'ratelimit'"""
+    return make_api(staging_url, staging_token)
 
 
 @pytest.fixture
