@@ -10,6 +10,13 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 | 31.0.0  | 3.11+           | v3             |
 | 3.7.2   | 3.11+           | v3             |
 
+
+## [31.0.1]
+
+### Added
+
+- documentation sur le ratelimiter
+
 ## [31.0.0]
 
 ### !! Breaking change !!
