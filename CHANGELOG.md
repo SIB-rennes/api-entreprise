@@ -3,6 +3,21 @@
 Changelog basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Versions existantes et compatibilité
+
+| Version | Version python | API entreprise |
+| ------- | -------------- | -------------- |
+| 31.0.0  | 3.11+           | v3             |
+| 3.7.2   | 3.11+           | v3             |
+
+## [31.0.0]
+
+### !! Breaking change !!
+
+- Rend optionnel l'utilisation d'un ratelimiter client.
+- Un nouvel extras existe pour l'utilisation d'un ratelimiter client : `api-entreprise[ratelimiter]`
+- Spécifie plus précisement la sémantique derrière les versions
+
 ## [3.3.3]
 
 ### Added

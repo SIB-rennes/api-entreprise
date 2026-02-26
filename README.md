@@ -5,8 +5,9 @@ Client pour [https://api.gouv.fr/les-api/api-entreprise](https://api.gouv.fr/les
 ## Ajout de la dépendance dans un requirements.txt
 
 Par exemple:
+
 ```
-api-entreprise>=3
+api-entreprise>=31,<32
 ```
 
 ## Uilisation de la cli
@@ -24,4 +25,3 @@ python -m pipx install api-entreprise
 ```bash
 api-entreprise --help
 ```
-
